@@ -33,13 +33,20 @@ function ajustarHoraLocal(fechaISO) {
 
 // 🚀 ENDPOINT PARA EXPORTAR
 app.post('/api/exportar', async (req, res) => {
-    const { fecha } = req.body; // Recibe la fecha del frontend (YYYY-MM-DD)
+    const { fechaInicio, fechaFin, fecha } = req.body; // Recibe rango o fecha única
 
-    if (!fecha) {
-        return res.status(400).json({ error: "La fecha es requerida" });
+    const start = fechaInicio || fecha;
+    const end = fechaFin || fecha;
+
+    if (!start || !end) {
+        return res.status(400).json({ error: "Las fechas de inicio y fin son requeridas" });
     }
 
-    console.log(`\nIniciando extracción masiva para: ${fecha}`);
+    if (start > end) {
+        return res.status(400).json({ error: "La fecha de inicio no puede ser mayor a la de fin" });
+    }
+
+    console.log(`\nIniciando extracción masiva desde: ${start} hasta: ${end}`);
     let todasLasTransacciones = [];
 
     for (const compania of companias) {
@@ -62,8 +69,8 @@ app.post('/api/exportar', async (req, res) => {
                     merchant_id: MERCHANT_ID_FIXO,
                     merchant_secret: merchantSecret,
                     page: paginaActual,
-                    start_date: fecha,
-                    end_date: fecha
+                    start_date: start,
+                    end_date: end
                 }, { timeout: 15000 });
 
                 if (response.data.success) {
@@ -108,7 +115,7 @@ app.post('/api/exportar', async (req, res) => {
     }
 
     if (todasLasTransacciones.length === 0) {
-        return res.status(404).json({ error: "No hay transacciones en la fecha seleccionada." });
+        return res.status(404).json({ error: "No hay transacciones en el rango de fechas seleccionado." });
     }
 
     try {
@@ -117,7 +124,7 @@ app.post('/api/exportar', async (req, res) => {
 
         // Configuramos la respuesta como un archivo descargable
         res.header('Content-Type', 'text/csv');
-        res.attachment(`reporte_consolidado_${fecha}.csv`);
+        res.attachment(`reporte_consolidado_${start}_al_${end}.csv`);
         return res.send(csv);
 
     } catch (err) {

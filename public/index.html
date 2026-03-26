@@ -175,11 +175,17 @@
             <h1>TIERLOCK</h1>
         </div>
         <h2>Reporte de Depósitos</h2>
-        <p>Selecciona la fecha para consolidar las 32 compañías.</p>
+        <p>Selecciona un rango de fechas para consolidar las 32 compañías.</p>
 
-        <div class="form-group">
-            <label for="fechaSelect">Fecha del Reporte</label>
-            <input type="date" id="fechaSelect">
+        <div class="form-group" style="display: flex; gap: 10px;">
+            <div style="flex: 1;">
+                <label for="fechaInicio">Fecha Inicio</label>
+                <input type="date" id="fechaInicio">
+            </div>
+            <div style="flex: 1;">
+                <label for="fechaFin">Fecha Fin</label>
+                <input type="date" id="fechaFin">
+            </div>
         </div>
 
         <button id="btnExportar">
@@ -193,10 +199,12 @@
         // CONFIGURACIÓN: Cambia esto por tu URL de Railway después del deploy
         const API_URL = "https://export-tierlock-balances-production-ecbf.up.railway.app/api/exportar";
 
-        document.getElementById('fechaSelect').valueAsDate = new Date();
+        document.getElementById('fechaInicio').valueAsDate = new Date();
+        document.getElementById('fechaFin').valueAsDate = new Date();
 
         document.getElementById('btnExportar').addEventListener('click', async () => {
-            const fecha = document.getElementById('fechaSelect').value;
+            const fechaInicio = document.getElementById('fechaInicio').value;
+            const fechaFin = document.getElementById('fechaFin').value;
             const btn = document.getElementById('btnExportar');
             const loader = document.getElementById('loader');
             const btnText = document.getElementById('btnText');
@@ -212,7 +220,7 @@
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ fecha })
+                    body: JSON.stringify({ fechaInicio, fechaFin })
                 });
 
                 if (!response.ok) {
@@ -224,7 +232,11 @@
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = `reporte_${fecha}.csv`;
+                if (fechaInicio === fechaFin) {
+                    a.download = `reporte_${fechaInicio}.csv`;
+                } else {
+                    a.download = `reporte_${fechaInicio}_al_${fechaFin}.csv`;
+                }
                 a.click();
 
                 msj.style.color = "#34d399";
