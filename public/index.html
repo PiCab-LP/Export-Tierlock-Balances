@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Depósitos | Tierlock</title>
+    <style>
+        :root {
+            --primary: #fbbf24;
+            --primary-hover: #f59e0b;
+            --bg-dark: #0a0a0a;
+            --card-bg: #111111;
+            --text-main: #ffffff;
+            --text-secondary: #9ca3af;
+            --input-border: #262626;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 1rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 2.5rem 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 100%;
+            max-width: 400px;
+            border: 1px solid var(--input-border);
+        }
+
+        .logo-container {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 1.875rem;
+            font-weight: 800;
+            margin: 0;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .subtitle {
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            margin-top: 0.5rem;
+            margin-bottom: 2rem;
+            letter-spacing: 0.05em;
+        }
+
+        h2 {
+            color: var(--text-main);
+            font-size: 1.125rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        p {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .form-group {
+            text-align: left;
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: #171717;
+            border: 1px solid var(--input-border);
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            color: var(--text-main);
+            outline: none;
+            transition: all 0.2s;
+            box-sizing: border-box;
+        }
+
+        input[type="date"]:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: #000;
+            border: none;
+            padding: 0.875rem 1.5rem;
+            font-size: 1rem;
+            border-radius: 0.625rem;
+            cursor: pointer;
+            width: 100%;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background-color: #404040;
+            color: #737373;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        /* Estilos del Spinner */
+        .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2.5px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: #000;
+            animation: spin 0.8s linear infinite;
+            display: none;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #mensaje {
+            margin-top: 1.5rem;
+            padding: 0.75rem;
+            border-radius: 0.5rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            background-color: rgba(255, 255, 255, 0.05);
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+        <div class="logo-container">
+            <h1>TIERLOCK</h1>
+        </div>
+        <h2>Reporte de Depósitos</h2>
+        <p>Selecciona la fecha para consolidar las 32 compañías.</p>
+
+        <div class="form-group">
+            <label for="fechaSelect">Fecha del Reporte</label>
+            <input type="date" id="fechaSelect">
+        </div>
+
+        <button id="btnExportar">
+            <div class="spinner" id="loader"></div>
+            <span id="btnText">Descargar CSV</span>
+        </button>
+        <div id="mensaje"></div>
+    </div>
+
+    <script>
+        // CONFIGURACIÓN: Cambia esto por tu URL de Railway después del deploy
+        const API_URL = "https://TU_URL_DE_RAILWAY.up.railway.app/api/exportar";
+
+        document.getElementById('fechaSelect').valueAsDate = new Date();
+
+        document.getElementById('btnExportar').addEventListener('click', async () => {
+            const fecha = document.getElementById('fechaSelect').value;
+            const btn = document.getElementById('btnExportar');
+            const loader = document.getElementById('loader');
+            const btnText = document.getElementById('btnText');
+            const msj = document.getElementById('mensaje');
+
+            btn.disabled = true;
+            loader.style.display = "block";
+            btnText.innerText = "Procesando...";
+            msj.innerText = "";
+            msj.style.display = "none";
+
+            try {
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ fecha })
+                });
+
+                if (!response.ok) {
+                    const error = await response.json();
+                    throw new Error(error.error || "Error en el servidor");
+                }
+
+                const blob = await response.blob();
+                const url = window.URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `reporte_${fecha}.csv`;
+                a.click();
+
+                msj.style.color = "#34d399";
+                msj.innerText = "✅ Reporte generado con éxito";
+                msj.style.display = "block";
+            } catch (e) {
+                msj.style.color = "#f87171";
+                msj.innerText = "❌ " + e.message;
+                msj.style.display = "block";
+            } finally {
+                btn.disabled = false;
+                loader.style.display = "none";
+                btnText.innerText = "Descargar CSV";
+            }
+        });
+    </script>
+</body>
+
+</html>

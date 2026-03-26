@@ -1,0 +1,102 @@
+[
+  {
+    "nombre": "Fast Fortunes",
+    "env_var": "SECRET_FAST_FORTUNES"
+  },
+  {
+    "nombre": "Innercore Games",
+    "env_var": "SECRET_INNERCORE_GAMES"
+  },
+  {
+    "nombre": "Paper Route",
+    "env_var": "SECRET_PAPER_ROUTE"
+  },
+  {
+    "nombre": "Lucky Duck Lounge",
+    "env_var": "SECRET_LUCKY_DUCK_LOUNGE"
+  },
+  {
+    "nombre": "Simply Unmatched",
+    "env_var": "SECRET_SIMPLY_UNMATCHED"
+  },
+  {
+    "nombre": "Lucky Shamrock",
+    "env_var": "SECRET_LUCKY_SHAMROCK"
+  },
+  {
+    "nombre": "Crazy Coins",
+    "env_var": "SECRET_CRAZY_COINS"
+  },
+  {
+    "nombre": "Lucky Fin",
+    "env_var": "SECRET_LUCKY_FIN"
+  },
+  {
+    "nombre": "House of LingLing",
+    "env_var": "SECRET_HOUSE_OF_LINGLING"
+  },
+  {
+    "nombre": "Ms Lady Vegas",
+    "env_var": "SECRET_MS_LADY_VEGAS"
+  },
+  {
+    "nombre": "Galaxy Entertainment",
+    "env_var": "SECRET_GALAXY_ENTERTAINMENT"
+  },
+  {
+    "nombre": "Rapid Reloads",
+    "env_var": "SECRET_RAPID_RELOADS"
+  },
+  {
+    "nombre": "The Hot Spot",
+    "env_var": "SECRET_THE_HOT_SPOT"
+  },
+  {
+    "nombre": "Best Fish Games",
+    "env_var": "SECRET_BEST_FISH_GAMES"
+  },
+  {
+    "nombre": "Wager Island",
+    "env_var": "SECRET_WAGER_ISLAND"
+  },
+  {
+    "nombre": "777 Twenty Four Seven",
+    "env_var": "SECRET_777_TWENTY_FOUR_SEVEN"
+  },
+  {
+    "nombre": "Two City Takeover",
+    "env_var": "SECRET_TWO_CITY_TAKEOVER"
+  },
+  {
+    "nombre": "Luxury Slots",
+    "env_var": "SECRET_LUXURY_SLOTS"
+  },
+  {
+    "nombre": "Fast Play Slots",
+    "env_var": "SECRET_FAST_PLAY_SLOTS"
+  },
+  {
+    "nombre": "Black Sheep Gameroom",
+    "env_var": "SECRET_BLACK_SHEEP_GAMEROOM"
+  },
+  {
+    "nombre": "Slot Luck",
+    "env_var": "SECRET_SLOT_LUCK"
+  },
+  {
+    "nombre": "Wysaro",
+    "env_var": "SECRET_WYSARO"
+  },
+  {
+    "nombre": "Legendary Millions Casino",
+    "env_var": "SECRET_LEGENDARY_MILLIONS_CASINO"
+  },
+  {
+    "nombre": "Lucky Waves Arcade",
+    "env_var": "SECRET_LUCKY_WAVES_ARCADE"
+  },
+  {
+    "nombre": "The Penthouse",
+    "env_var": "SECRET_THE_PENTHOUSE"
+  }
+]
