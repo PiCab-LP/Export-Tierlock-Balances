@@ -100,42 +100,6 @@
     "env_var": "SECRET_THE_PENTHOUSE"
   },
   {
-    "nombre": "Play Play Play",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Lucky Lady",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Play OakCreek",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Slap It",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Slot House",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Slot Craze",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Hailey Games",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Mushroom Kingdom",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
-    "nombre": "Bit Vegas",
-    "env_var": "SECRET_GLOBAL"
-  },
-  {
     "nombre": "Ballerz World of Gamez",
     "env_var": "SECRET_BALLERZ_WORLD_OF_GAMEZ",
     "env_id": "MERCHANT_ID_BALLERZ_WORLD_OF_GAMEZ"
