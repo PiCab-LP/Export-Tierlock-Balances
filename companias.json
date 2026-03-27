@@ -101,39 +101,39 @@
   },
   {
     "nombre": "Play Play Play",
-    "env_var": "SECRET_PLAY_PLAY_PLAY"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Lucky Lady",
-    "env_var": "SECRET_LUCKY_LADY"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Play OakCreek",
-    "env_var": "SECRET_PLAY_OAKCREEK"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Slap It",
-    "env_var": "SECRET_SLAP_IT"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Slot House",
-    "env_var": "SECRET_SLOT_HOUSE"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Slot Craze",
-    "env_var": "SECRET_SLOT_CRAZE"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Hailey Games",
-    "env_var": "SECRET_HAILEY_GAMES"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Mushroom Kingdom",
-    "env_var": "SECRET_MUSHROOM_KINGDOM"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Bit Vegas",
-    "env_var": "SECRET_BIT_VEGAS"
+    "env_var": "SECRET_GLOBAL"
   },
   {
     "nombre": "Ballerz World of Gamez",
