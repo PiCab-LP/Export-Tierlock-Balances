@@ -11,8 +11,7 @@ const app = express();
 app.use(express.json());
 app.use(cors()); // Permite que tu frontend en Vercel se conecte
 
-// 1. Configuración Global
-const MERCHANT_ID_FIXO = process.env.MERCHANT_ID_GLOBAL;
+// Carga de las compañías
 const companias = JSON.parse(fs.readFileSync('companias.json', 'utf8'));
 
 // 🕒 Función de Ajuste de Zona Horaria (-5 horas)
@@ -52,12 +51,17 @@ app.post('/api/exportar', async (req, res) => {
     for (const compania of companias) {
         console.log(`🚀 Procesando: ${compania.nombre}...`);
 
-        // Obtenemos el secreto desde las variables de entorno (.env o Railway)
+        // --- LÓGICA HÍBRIDA APLICADA ---
+        // Si el JSON tiene 'env_id', usa esa variable (para las nuevas y los independientes).
+        // Si no lo tiene, usa el MERCHANT_ID_GLOBAL por defecto (para las 32 originales).
+        const merchantId = compania.env_id ? process.env[compania.env_id] : process.env.MERCHANT_ID_GLOBAL;
+        
+        // El secreto siempre lo busca con el nombre definido en el JSON
         const merchantSecret = process.env[compania.env_var];
 
-        if (!MERCHANT_ID_FIXO || !merchantSecret) {
-            console.error(`❌ Faltan credenciales para ${compania.nombre}.`);
-            continue;
+        if (!merchantId || !merchantSecret) {
+            console.error(`❌ Faltan credenciales para ${compania.nombre}. Revisa tus variables en Railway.`);
+            continue; // Salta a la siguiente si falta algo
         }
 
         let paginaActual = 1;
@@ -66,7 +70,7 @@ app.post('/api/exportar', async (req, res) => {
         try {
             while (tieneMasPaginas) {
                 const response = await axios.post('https://api.tierlock.com/api/transactions', {
-                    merchant_id: MERCHANT_ID_FIXO,
+                    merchant_id: merchantId,         // <-- Ahora usa la variable dinámica
                     merchant_secret: merchantSecret,
                     page: paginaActual,
                     start_date: start,

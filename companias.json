@@ -98,5 +98,49 @@
   {
     "nombre": "The Penthouse",
     "env_var": "SECRET_THE_PENTHOUSE"
+  },
+  {
+    "nombre": "Play Play Play",
+    "env_var": "SECRET_PLAY_PLAY_PLAY"
+  },
+  {
+    "nombre": "Lucky Lady",
+    "env_var": "SECRET_LUCKY_LADY"
+  },
+  {
+    "nombre": "Play OakCreek",
+    "env_var": "SECRET_PLAY_OAKCREEK"
+  },
+  {
+    "nombre": "Slap It",
+    "env_var": "SECRET_SLAP_IT"
+  },
+  {
+    "nombre": "Slot House",
+    "env_var": "SECRET_SLOT_HOUSE"
+  },
+  {
+    "nombre": "Slot Craze",
+    "env_var": "SECRET_SLOT_CRAZE"
+  },
+  {
+    "nombre": "Hailey Games",
+    "env_var": "SECRET_HAILEY_GAMES"
+  },
+  {
+    "nombre": "Mushroom Kingdom",
+    "env_var": "SECRET_MUSHROOM_KINGDOM"
+  },
+  {
+    "nombre": "Bit Vegas",
+    "env_var": "SECRET_BIT_VEGAS"
+  },
+  {
+    "nombre": "Ballerz World of Gamez",
+    "env_var": "SECRET_BALLERZ_WORLD_OF_GAMEZ"
+  },
+  {
+    "nombre": "Wise Gang",
+    "env_var": "SECRET_WISE_GANG"
   }
 ]
