@@ -30,9 +30,11 @@ function ajustarHoraLocal(fechaISO) {
     return `${año}-${mes}-${dia} ${horas}:${mins}:${segs}`;
 }
 
-// 🚀 ENDPOINT PARA EXPORTAR
+const jobs = new Map();
+
+// 🚀 ENDPOINT PARA EXPORTAR (Inicia el trabajo)
 app.post('/api/exportar', async (req, res) => {
-    const { fechaInicio, fechaFin, fecha } = req.body; // Recibe rango o fecha única
+    const { fechaInicio, fechaFin, fecha } = req.body;
 
     const start = fechaInicio || fecha;
     const end = fechaFin || fecha;
@@ -45,96 +47,157 @@ app.post('/api/exportar', async (req, res) => {
         return res.status(400).json({ error: "La fecha de inicio no puede ser mayor a la de fin" });
     }
 
-    console.log(`\nIniciando extracción masiva desde: ${start} hasta: ${end}`);
-    let todasLasTransacciones = [];
+    const jobId = Date.now().toString();
+    jobs.set(jobId, { 
+        status: 'processing', 
+        progress: 0, 
+        current: 0, 
+        total: companias.length,
+        start,
+        end
+    });
 
-    for (const compania of companias) {
-        console.log(`🚀 Procesando: ${compania.nombre}...`);
+    res.json({ jobId });
 
-        // --- LÓGICA HÍBRIDA APLICADA ---
-        // Si el JSON tiene 'env_id', usa esa variable (para las nuevas y los independientes).
-        // Si no lo tiene, usa el MERCHANT_ID_GLOBAL por defecto (para las 32 originales).
-        const merchantId = compania.env_id ? process.env[compania.env_id] : process.env.MERCHANT_ID_GLOBAL;
-        
-        // El secreto siempre lo busca con el nombre definido en el JSON
-        const merchantSecret = process.env[compania.env_var];
+    // Procesamiento asíncrono en segundo plano
+    (async () => {
+        console.log(`\nIniciando extracción masiva desde: ${start} hasta: ${end} (Job: ${jobId})`);
+        let todasLasTransacciones = [];
+        let i = 0;
 
-        if (!merchantId || !merchantSecret) {
-            console.error(`❌ Faltan credenciales para ${compania.nombre}. Revisa tus variables en Railway.`);
-            continue; // Salta a la siguiente si falta algo
-        }
+        for (const compania of companias) {
+            i++;
+            if (jobs.has(jobId)) {
+                const job = jobs.get(jobId);
+                job.current = i;
+                job.progress = Math.round((i / companias.length) * 100);
+            }
 
-        let paginaActual = 1;
-        let tieneMasPaginas = true;
+            console.log(`🚀 [Job ${jobId}] Procesando: ${compania.nombre} (${i}/${companias.length})...`);
 
-        try {
-            while (tieneMasPaginas) {
-                const response = await axios.post('https://api.tierlock.com/api/transactions', {
-                    merchant_id: merchantId,         // <-- Ahora usa la variable dinámica
-                    merchant_secret: merchantSecret,
-                    page: paginaActual,
-                    start_date: start,
-                    end_date: end
-                }, { timeout: 15000 });
+            const merchantId = compania.env_id ? process.env[compania.env_id] : process.env.MERCHANT_ID_GLOBAL;
+            const merchantSecret = process.env[compania.env_var];
 
-                if (response.data.success) {
-                    const transacciones = response.data.data;
+            if (!merchantId || !merchantSecret) {
+                console.error(`❌ Faltan credenciales para ${compania.nombre}.`);
+                continue;
+            }
 
-                    if (transacciones && transacciones.length > 0) {
-                        const dataMapeada = transacciones.map(txn => ({
-                            compania_nombre: compania.nombre,
-                            transaction_id: txn.transaction_id,
-                            order_id: txn.order_id,
-                            status: txn.status,
-                            monto_total: txn.amount?.total,
-                            monto_neto: parseFloat(txn.amount?.net || 0),
-                            propina: txn.amount?.tip,
-                            comision: txn.amount?.fees,
-                            moneda: txn.currency,
-                            cliente_email: txn.customer?.email,
-                            cliente_tel: txn.customer?.phone,
-                            blockchain_hash: txn.blockchain?.transaction_hash,
-                            fecha_local: ajustarHoraLocal(txn.timestamps?.created_at)
-                        }));
+            let paginaActual = 1;
+            let tieneMasPaginas = true;
 
-                        todasLasTransacciones.push(...dataMapeada);
+            try {
+                while (tieneMasPaginas) {
+                    const response = await axios.post('https://api.tierlock.com/api/transactions', {
+                        merchant_id: merchantId,
+                        merchant_secret: merchantSecret,
+                        page: paginaActual,
+                        start_date: start,
+                        end_date: end
+                    }, { timeout: 15000 });
 
-                        const totalPaginas = response.data.pagination.total_pages;
-                        if (paginaActual < totalPaginas) {
-                            paginaActual++;
+                    if (response.data.success) {
+                        const transacciones = response.data.data;
+
+                        if (transacciones && transacciones.length > 0) {
+                            const dataMapeada = transacciones.map(txn => ({
+                                compania_nombre: compania.nombre,
+                                transaction_id: txn.transaction_id,
+                                order_id: txn.order_id,
+                                status: txn.status,
+                                monto_total: txn.amount?.total,
+                                monto_neto: parseFloat(txn.amount?.net || 0),
+                                propina: txn.amount?.tip,
+                                comision: txn.amount?.fees,
+                                moneda: txn.currency,
+                                cliente_email: txn.customer?.email,
+                                cliente_tel: txn.customer?.phone,
+                                blockchain_hash: txn.blockchain?.transaction_hash,
+                                fecha_local: ajustarHoraLocal(txn.timestamps?.created_at)
+                            }));
+
+                            todasLasTransacciones.push(...dataMapeada);
+
+                            const totalPaginas = response.data.pagination.total_pages;
+                            if (paginaActual < totalPaginas) {
+                                paginaActual++;
+                            } else {
+                                tieneMasPaginas = false;
+                            }
                         } else {
                             tieneMasPaginas = false;
                         }
                     } else {
                         tieneMasPaginas = false;
                     }
-                } else {
-                    tieneMasPaginas = false;
                 }
+            } catch (error) {
+                console.error(`💥 Error en ${compania.nombre}: ${error.message}`);
+                tieneMasPaginas = false;
             }
-        } catch (error) {
-            console.error(`💥 Error en ${compania.nombre}: ${error.message}`);
-            tieneMasPaginas = false;
         }
+
+        if (todasLasTransacciones.length === 0) {
+            if (jobs.has(jobId)) {
+                const job = jobs.get(jobId);
+                job.status = 'error';
+                job.error = "No hay transacciones en el rango de fechas seleccionado.";
+            }
+            return;
+        }
+
+        try {
+            const json2csvParser = new Parser();
+            const csv = json2csvParser.parse(todasLasTransacciones);
+            if (jobs.has(jobId)) {
+                const job = jobs.get(jobId);
+                job.status = 'completed';
+                job.csvData = csv;
+                job.progress = 100;
+            }
+        } catch (err) {
+            console.error("Error al generar CSV:", err);
+            if (jobs.has(jobId)) {
+                const job = jobs.get(jobId);
+                job.status = 'error';
+                job.error = "Error generando el archivo CSV";
+            }
+        }
+    })();
+});
+
+// 📊 ENDPOINT PARA VERIFICAR ESTADO
+app.get('/api/estado/:jobId', (req, res) => {
+    const job = jobs.get(req.params.jobId);
+    if (!job) return res.status(404).json({ error: "Trabajo no encontrado" });
+    
+    res.json({
+        status: job.status,
+        progress: job.progress,
+        current: job.current,
+        total: job.total,
+        error: job.error
+    });
+});
+
+// 📥 ENDPOINT PARA DESCARGAR CSV
+app.get('/api/descargar/:jobId', (req, res) => {
+    const job = jobs.get(req.params.jobId);
+    if (!job || job.status !== 'completed') {
+        return res.status(404).json({ error: "Archivo no disponible o no ha terminado de procesarse" });
     }
+    
+    const { start, end, csvData } = job;
 
-    if (todasLasTransacciones.length === 0) {
-        return res.status(404).json({ error: "No hay transacciones en el rango de fechas seleccionado." });
-    }
-
-    try {
-        const json2csvParser = new Parser();
-        const csv = json2csvParser.parse(todasLasTransacciones);
-
-        // Configuramos la respuesta como un archivo descargable
-        res.header('Content-Type', 'text/csv');
-        res.attachment(`reporte_consolidado_${start}_al_${end}.csv`);
-        return res.send(csv);
-
-    } catch (err) {
-        console.error("Error al generar CSV:", err);
-        return res.status(500).json({ error: "Error generando el archivo CSV" });
-    }
+    res.header('Content-Type', 'text/csv');
+    let filename = start === end ? `reporte_${start}.csv` : `reporte_consolidado_${start}_al_${end}.csv`;
+    
+    // Configura Content-Disposition para que se descargue con el nombre correcto
+    res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
+    res.send(csvData);
+    
+    // Limpieza de memoria (opcional, borramos después de descargar para no ocupar RAM)
+    jobs.delete(req.params.jobId);
 });
 
 // Inicio del servidor

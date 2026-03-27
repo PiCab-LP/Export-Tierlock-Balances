@@ -166,6 +166,33 @@
             background-color: rgba(255, 255, 255, 0.05);
             display: none;
         }
+
+        /* Barra de Progreso */
+        .progress-container {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--input-border);
+            border-radius: 0.5rem;
+            margin-top: 1.5rem;
+            overflow: hidden;
+            display: none;
+            position: relative;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background-color: var(--primary);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-text {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-top: 0.5rem;
+            display: none;
+            font-weight: 500;
+        }
     </style>
 </head>
 
@@ -193,6 +220,13 @@
             <div class="spinner" id="loader"></div>
             <span id="btnText">Descargar CSV</span>
         </button>
+
+        <!-- Contenedor progreso -->
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="progress-text" id="progressText">Calculando...</div>
+        
         <div id="mensaje"></div>
     </div>
 
@@ -210,14 +244,21 @@
             const loader = document.getElementById('loader');
             const btnText = document.getElementById('btnText');
             const msj = document.getElementById('mensaje');
+            const progressContainer = document.getElementById('progressContainer');
+            const progressBar = document.getElementById('progressBar');
+            const progressText = document.getElementById('progressText');
 
             btn.disabled = true;
             loader.style.display = "block";
-            btnText.innerText = "Procesando...";
-            msj.innerText = "";
+            btnText.innerText = "Iniciando...";
             msj.style.display = "none";
+            progressContainer.style.display = "block";
+            progressText.style.display = "block";
+            progressBar.style.width = "0%";
+            progressText.innerText = "Preparando...";
 
             try {
+                // Iniciar tarea asíncrona en el servidor
                 const response = await fetch(API_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -226,22 +267,49 @@
 
                 if (!response.ok) {
                     const error = await response.json();
-                    throw new Error(error.error || "Error en el servidor");
+                    throw new Error(error.error || "Error al iniciar proceso");
                 }
 
-                const blob = await response.blob();
-                const url = window.URL.createObjectURL(blob);
-                const a = document.createElement('a');
-                a.href = url;
-                if (fechaInicio === fechaFin) {
-                    a.download = `reporte_${fechaInicio}.csv`;
-                } else {
-                    a.download = `reporte_${fechaInicio}_al_${fechaFin}.csv`;
+                const data = await response.json();
+                const jobId = data.jobId;
+
+                let jobStatus = 'processing';
+                const API_BASE = API_URL.replace('/exportar', '');
+
+                btnText.innerText = "Procesando...";
+
+                // Poll el progreso del trabajo
+                while (jobStatus === 'processing') {
+                    await new Promise(r => setTimeout(r, 1500)); // Chequear cada 1.5s
+                    const statusRes = await fetch(`${API_BASE}/estado/${jobId}`);
+                    const statusData = await statusRes.json();
+                    
+                    if (statusData.error) throw new Error(statusData.error);
+                    
+                    jobStatus = statusData.status;
+
+                    if (jobStatus === 'processing') {
+                        progressBar.style.width = `${statusData.progress}%`;
+                        progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
+                    } else if (jobStatus === 'error') {
+                        throw new Error(statusData.error || "Error durante extracción");
+                    }
                 }
+
+                // Generado con éxito, descargar archivo
+                progressBar.style.width = "100%";
+                progressText.innerText = "¡Finalizado! Descargando...";
+                
+                const downloadUrl = `${API_BASE}/descargar/${jobId}`;
+                const a = document.createElement('a');
+                a.href = downloadUrl;
+                // Intentamos forzar el clic nativo
+                document.body.appendChild(a);
                 a.click();
+                document.body.removeChild(a);
 
                 msj.style.color = "#34d399";
-                msj.innerText = "✅ Reporte generado con éxito";
+                msj.innerText = "✅ Reporte descargado con éxito";
                 msj.style.display = "block";
             } catch (e) {
                 msj.style.color = "#f87171";
@@ -251,6 +319,10 @@
                 btn.disabled = false;
                 loader.style.display = "none";
                 btnText.innerText = "Descargar CSV";
+                setTimeout(() => {
+                    progressContainer.style.display = "none";
+                    progressText.style.display = "none";
+                }, 4000);
             }
         });
     </script>
