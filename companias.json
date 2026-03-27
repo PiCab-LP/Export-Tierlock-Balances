@@ -137,10 +137,12 @@
   },
   {
     "nombre": "Ballerz World of Gamez",
-    "env_var": "SECRET_BALLERZ_WORLD_OF_GAMEZ"
+    "env_var": "SECRET_BALLERZ_WORLD_OF_GAMEZ",
+    "env_id": "MERCHANT_ID_BALLERZ_WORLD_OF_GAMEZ"
   },
   {
     "nombre": "Wise Gang",
-    "env_var": "SECRET_WISE_GANG"
+    "env_var": "SECRET_WISE_GANG",
+    "env_id": "MERCHANT_ID_WISE_GANG"
   }
 ]
