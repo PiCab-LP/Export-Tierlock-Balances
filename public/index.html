@@ -1,331 +1,339 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard de Depósitos | Tierlock</title>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tierlock Reportes</title>
     <style>
-        :root {
-            --primary: #fbbf24;
-            --primary-hover: #f59e0b;
-            --bg-dark: #0a0a0a;
-            --card-bg: #111111;
-            --text-main: #ffffff;
-            --text-secondary: #9ca3af;
-            --input-border: #262626;
-        }
+      :root {
+        --primary: #fbbf24;
+        --primary-hover: #f59e0b;
+        --bg-dark: #0a0a0a;
+        --card-bg: #111111;
+        --text-main: #ffffff;
+        --text-secondary: #9ca3af;
+        --input-border: #262626;
+      }
 
-        body {
-            font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 1rem;
-        }
+      body {
+        font-family:
+          "Inter",
+          "Segoe UI",
+          system-ui,
+          -apple-system,
+          sans-serif;
+        background-color: var(--bg-dark);
+        color: var(--text-main);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem;
+      }
 
-        .card {
-            background: var(--card-bg);
-            padding: 2.5rem 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            text-align: center;
-            width: 100%;
-            max-width: 400px;
-            border: 1px solid var(--input-border);
-        }
+      .card {
+        background: var(--card-bg);
+        padding: 2.5rem 2rem;
+        border-radius: 1rem;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        text-align: center;
+        width: 100%;
+        max-width: 400px;
+        border: 1px solid var(--input-border);
+      }
 
-        .logo-container {
-            margin-bottom: 2rem;
-        }
+      .logo-container {
+        margin-bottom: 2rem;
+      }
 
-        h1 {
-            color: var(--primary);
-            font-size: 1.875rem;
-            font-weight: 800;
-            margin: 0;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
+      h1 {
+        color: var(--primary);
+        font-size: 1.875rem;
+        font-weight: 800;
+        margin: 0;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
 
-        .subtitle {
-            color: var(--text-secondary);
-            font-size: 0.75rem;
-            margin-top: 0.5rem;
-            margin-bottom: 2rem;
-            letter-spacing: 0.05em;
-        }
+      .subtitle {
+        color: var(--text-secondary);
+        font-size: 0.75rem;
+        margin-top: 0.5rem;
+        margin-bottom: 2rem;
+        letter-spacing: 0.05em;
+      }
 
-        h2 {
-            color: var(--text-main);
-            font-size: 1.125rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
+      h2 {
+        color: var(--text-main);
+        font-size: 1.125rem;
+        margin-bottom: 0.5rem;
+        font-weight: 600;
+      }
 
-        p {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-bottom: 2rem;
-            line-height: 1.5;
-        }
+      p {
+        color: var(--text-secondary);
+        font-size: 0.875rem;
+        margin-bottom: 2rem;
+        line-height: 1.5;
+      }
 
-        .form-group {
-            text-align: left;
-            margin-bottom: 1.5rem;
-        }
+      .form-group {
+        text-align: left;
+        margin-bottom: 1.5rem;
+      }
 
-        label {
-            display: block;
-            color: var(--text-main);
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-bottom: 0.5rem;
-        }
+      label {
+        display: block;
+        color: var(--text-main);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
 
-        input[type="date"] {
-            width: 100%;
-            padding: 0.875rem;
-            background-color: #171717;
-            border: 1px solid var(--input-border);
-            border-radius: 0.5rem;
-            font-size: 1rem;
-            color: var(--text-main);
-            outline: none;
-            transition: all 0.2s;
-            box-sizing: border-box;
-            color-scheme: dark;
-        }
+      input[type="date"] {
+        width: 100%;
+        padding: 0.875rem;
+        background-color: #171717;
+        border: 1px solid var(--input-border);
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        color: var(--text-main);
+        outline: none;
+        transition: all 0.2s;
+        box-sizing: border-box;
+        color-scheme: dark;
+      }
 
-        input[type="date"]:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
-        }
+      input[type="date"]:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+      }
 
-        button {
-            background-color: var(--primary);
-            color: #000;
-            border: none;
-            padding: 0.875rem 1.5rem;
-            font-size: 1rem;
-            border-radius: 0.625rem;
-            cursor: pointer;
-            width: 100%;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 12px;
-            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-            margin-top: 1rem;
-        }
+      button {
+        background-color: var(--primary);
+        color: #000;
+        border: none;
+        padding: 0.875rem 1.5rem;
+        font-size: 1rem;
+        border-radius: 0.625rem;
+        cursor: pointer;
+        width: 100%;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        margin-top: 1rem;
+      }
 
-        button:hover {
-            background-color: var(--primary-hover);
-            transform: translateY(-1px);
-        }
+      button:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-1px);
+      }
 
-        button:active {
-            transform: translateY(0);
-        }
+      button:active {
+        transform: translateY(0);
+      }
 
-        button:disabled {
-            background-color: #404040;
-            color: #737373;
-            cursor: not-allowed;
-            transform: none;
-        }
+      button:disabled {
+        background-color: #404040;
+        color: #737373;
+        cursor: not-allowed;
+        transform: none;
+      }
 
-        /* Estilos del Spinner */
-        .spinner {
-            width: 18px;
-            height: 18px;
-            border: 2.5px solid rgba(0, 0, 0, 0.1);
-            border-radius: 50%;
-            border-top-color: #000;
-            animation: spin 0.8s linear infinite;
-            display: none;
-        }
+      /* Estilos del Spinner */
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2.5px solid rgba(0, 0, 0, 0.1);
+        border-radius: 50%;
+        border-top-color: #000;
+        animation: spin 0.8s linear infinite;
+        display: none;
+      }
 
-        @keyframes spin {
-            to {
-                transform: rotate(360deg);
-            }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
         }
+      }
 
-        #mensaje {
-            margin-top: 1.5rem;
-            padding: 0.75rem;
-            border-radius: 0.5rem;
-            font-size: 0.875rem;
-            font-weight: 500;
-            background-color: rgba(255, 255, 255, 0.05);
-            display: none;
-        }
+      #mensaje {
+        margin-top: 1.5rem;
+        padding: 0.75rem;
+        border-radius: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 500;
+        background-color: rgba(255, 255, 255, 0.05);
+        display: none;
+      }
 
-        /* Barra de Progreso */
-        .progress-container {
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--input-border);
-            border-radius: 0.5rem;
-            margin-top: 1.5rem;
-            overflow: hidden;
-            display: none;
-            position: relative;
-        }
+      /* Barra de Progreso */
+      .progress-container {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--input-border);
+        border-radius: 0.5rem;
+        margin-top: 1.5rem;
+        overflow: hidden;
+        display: none;
+        position: relative;
+      }
 
-        .progress-bar {
-            height: 8px;
-            background-color: var(--primary);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
+      .progress-bar {
+        height: 8px;
+        background-color: var(--primary);
+        width: 0%;
+        transition: width 0.3s ease;
+      }
 
-        .progress-text {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-top: 0.5rem;
-            display: none;
-            font-weight: 500;
-        }
+      .progress-text {
+        font-size: 0.75rem;
+        color: var(--text-secondary);
+        margin-top: 0.5rem;
+        display: none;
+        font-weight: 500;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <div class="card">
-        <div class="logo-container">
-            <h1>TIERLOCK</h1>
-        </div>
-        <h2>Reporte de Depósitos</h2>
-        <p>Selecciona un rango de fechas para consolidar las 32 compañías.</p>
+      <div class="logo-container">
+        <h1>TIERLOCK</h1>
+      </div>
+      <h2>Reporte de Depósitos</h2>
+      <p>
+        Selecciona un rango de fechas para verificar los depósitos de las
+        compañías.
+      </p>
 
-        <div class="form-group" style="display: flex; gap: 10px;">
-            <div style="flex: 1;">
-                <label for="fechaInicio">Fecha Inicio</label>
-                <input type="date" id="fechaInicio">
-            </div>
-            <div style="flex: 1;">
-                <label for="fechaFin">Fecha Fin</label>
-                <input type="date" id="fechaFin">
-            </div>
+      <div class="form-group" style="display: flex; gap: 10px">
+        <div style="flex: 1">
+          <label for="fechaInicio">Fecha Inicio</label>
+          <input type="date" id="fechaInicio" />
         </div>
-
-        <button id="btnExportar">
-            <div class="spinner" id="loader"></div>
-            <span id="btnText">Descargar CSV</span>
-        </button>
-
-        <!-- Contenedor progreso -->
-        <div class="progress-container" id="progressContainer">
-            <div class="progress-bar" id="progressBar"></div>
+        <div style="flex: 1">
+          <label for="fechaFin">Fecha Fin</label>
+          <input type="date" id="fechaFin" />
         </div>
-        <div class="progress-text" id="progressText">Calculando...</div>
-        
-        <div id="mensaje"></div>
+      </div>
+
+      <button id="btnExportar">
+        <div class="spinner" id="loader"></div>
+        <span id="btnText">Descargar CSV</span>
+      </button>
+
+      <!-- Contenedor progreso -->
+      <div class="progress-container" id="progressContainer">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+      <div class="progress-text" id="progressText">Calculando...</div>
+
+      <div id="mensaje"></div>
     </div>
 
     <script>
-        // CONFIGURACIÓN: Cambia esto por tu URL de Railway después del deploy
-        const API_URL = "https://export-tierlock-balances-production-ecbf.up.railway.app/api/exportar";
+      const API_URL =
+        "https://export-tierlock-balances-production-ecbf.up.railway.app/api/exportar";
 
-        document.getElementById('fechaInicio').valueAsDate = new Date();
-        document.getElementById('fechaFin').valueAsDate = new Date();
+      document.getElementById("fechaInicio").valueAsDate = new Date();
+      document.getElementById("fechaFin").valueAsDate = new Date();
 
-        document.getElementById('btnExportar').addEventListener('click', async () => {
-            const fechaInicio = document.getElementById('fechaInicio').value;
-            const fechaFin = document.getElementById('fechaFin').value;
-            const btn = document.getElementById('btnExportar');
-            const loader = document.getElementById('loader');
-            const btnText = document.getElementById('btnText');
-            const msj = document.getElementById('mensaje');
-            const progressContainer = document.getElementById('progressContainer');
-            const progressBar = document.getElementById('progressBar');
-            const progressText = document.getElementById('progressText');
+      document
+        .getElementById("btnExportar")
+        .addEventListener("click", async () => {
+          const fechaInicio = document.getElementById("fechaInicio").value;
+          const fechaFin = document.getElementById("fechaFin").value;
+          const btn = document.getElementById("btnExportar");
+          const loader = document.getElementById("loader");
+          const btnText = document.getElementById("btnText");
+          const msj = document.getElementById("mensaje");
+          const progressContainer =
+            document.getElementById("progressContainer");
+          const progressBar = document.getElementById("progressBar");
+          const progressText = document.getElementById("progressText");
 
-            btn.disabled = true;
-            loader.style.display = "block";
-            btnText.innerText = "Iniciando...";
-            msj.style.display = "none";
-            progressContainer.style.display = "block";
-            progressText.style.display = "block";
-            progressBar.style.width = "0%";
-            progressText.innerText = "Preparando...";
+          btn.disabled = true;
+          loader.style.display = "block";
+          btnText.innerText = "Iniciando...";
+          msj.style.display = "none";
+          progressContainer.style.display = "block";
+          progressText.style.display = "block";
+          progressBar.style.width = "0%";
+          progressText.innerText = "Preparando...";
 
-            try {
-                // Iniciar tarea asíncrona en el servidor
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ fechaInicio, fechaFin })
-                });
+          try {
+            // Iniciar tarea asíncrona en el servidor
+            const response = await fetch(API_URL, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ fechaInicio, fechaFin }),
+            });
 
-                if (!response.ok) {
-                    const error = await response.json();
-                    throw new Error(error.error || "Error al iniciar proceso");
-                }
-
-                const data = await response.json();
-                const jobId = data.jobId;
-
-                let jobStatus = 'processing';
-                const API_BASE = API_URL.replace('/exportar', '');
-
-                btnText.innerText = "Procesando...";
-
-                // Poll el progreso del trabajo
-                while (jobStatus === 'processing') {
-                    await new Promise(r => setTimeout(r, 1500)); // Chequear cada 1.5s
-                    const statusRes = await fetch(`${API_BASE}/estado/${jobId}`);
-                    const statusData = await statusRes.json();
-                    
-                    if (statusData.error) throw new Error(statusData.error);
-                    
-                    jobStatus = statusData.status;
-
-                    if (jobStatus === 'processing') {
-                        progressBar.style.width = `${statusData.progress}%`;
-                        progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
-                    } else if (jobStatus === 'error') {
-                        throw new Error(statusData.error || "Error durante extracción");
-                    }
-                }
-
-                // Generado con éxito, descargar archivo
-                progressBar.style.width = "100%";
-                progressText.innerText = "¡Finalizado! Descargando...";
-                
-                const downloadUrl = `${API_BASE}/descargar/${jobId}`;
-                const a = document.createElement('a');
-                a.href = downloadUrl;
-                // Intentamos forzar el clic nativo
-                document.body.appendChild(a);
-                a.click();
-                document.body.removeChild(a);
-
-                msj.style.color = "#34d399";
-                msj.innerText = "✅ Reporte descargado con éxito";
-                msj.style.display = "block";
-            } catch (e) {
-                msj.style.color = "#f87171";
-                msj.innerText = "❌ " + e.message;
-                msj.style.display = "block";
-            } finally {
-                btn.disabled = false;
-                loader.style.display = "none";
-                btnText.innerText = "Descargar CSV";
-                setTimeout(() => {
-                    progressContainer.style.display = "none";
-                    progressText.style.display = "none";
-                }, 4000);
+            if (!response.ok) {
+              const error = await response.json();
+              throw new Error(error.error || "Error al iniciar proceso");
             }
+
+            const data = await response.json();
+            const jobId = data.jobId;
+
+            let jobStatus = "processing";
+            const API_BASE = API_URL.replace("/exportar", "");
+
+            btnText.innerText = "Procesando...";
+
+            // Poll el progreso del trabajo
+            while (jobStatus === "processing") {
+              await new Promise((r) => setTimeout(r, 1500)); // Chequear cada 1.5s
+              const statusRes = await fetch(`${API_BASE}/estado/${jobId}`);
+              const statusData = await statusRes.json();
+
+              if (statusData.error) throw new Error(statusData.error);
+
+              jobStatus = statusData.status;
+
+              if (jobStatus === "processing") {
+                progressBar.style.width = `${statusData.progress}%`;
+                progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
+              } else if (jobStatus === "error") {
+                throw new Error(statusData.error || "Error durante extracción");
+              }
+            }
+
+            // Generado con éxito, descargar archivo
+            progressBar.style.width = "100%";
+            progressText.innerText = "¡Finalizado! Descargando...";
+
+            const downloadUrl = `${API_BASE}/descargar/${jobId}`;
+            const a = document.createElement("a");
+            a.href = downloadUrl;
+            // Intentamos forzar el clic nativo
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            msj.style.color = "#34d399";
+            msj.innerText = "✅ Reporte descargado con éxito";
+            msj.style.display = "block";
+          } catch (e) {
+            msj.style.color = "#f87171";
+            msj.innerText = "❌ " + e.message;
+            msj.style.display = "block";
+          } finally {
+            btn.disabled = false;
+            loader.style.display = "none";
+            btnText.innerText = "Descargar CSV";
+            setTimeout(() => {
+              progressContainer.style.display = "none";
+              progressText.style.display = "none";
+            }, 4000);
+          }
         });
     </script>
-</body>
-
+  </body>
 </html>
