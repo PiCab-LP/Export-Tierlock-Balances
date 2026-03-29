@@ -112,5 +112,10 @@
     "nombre": "Wise Gang",
     "env_var": "SECRET_WISE_GANG",
     "env_id": "MERCHANT_ID_WISE_GANG"
+  },
+  {
+    "nombre": "Dovera",
+    "env_var": "SECRET_DOVERA",
+    "env_id": "MERCHANT_ID_DOVERA"
   }
 ]
