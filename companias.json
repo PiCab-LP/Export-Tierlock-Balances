@@ -100,6 +100,10 @@
     "env_var": "SECRET_THE_PENTHOUSE"
   },
   {
+    "nombre": "Candy World",
+    "env_var": "SECRET_CANDY_WORLD"
+  },
+  {
     "nombre": "Ballerz World of Gamez",
     "env_var": "SECRET_BALLERZ_WORLD_OF_GAMEZ",
     "env_id": "MERCHANT_ID_BALLERZ_WORLD_OF_GAMEZ"
