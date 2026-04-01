@@ -117,5 +117,17 @@
     "nombre": "Dovera",
     "env_var": "SECRET_DOVERA",
     "env_id": "MERCHANT_ID_DOVERA"
+  },
+  {
+    "nombre": "Born Lucky Gameroom",
+    "env_var": "SECRET_BORN_LUCKY_GAMEROOM"
+  },
+  {
+    "nombre": "Royale Dynasty",
+    "env_var": "SECRET_ROYALE_DYNASTY"
+  },
+  {
+    "nombre": "Panda God",
+    "env_var": "SECRET_PANDA_GOD"
   }
 ]
