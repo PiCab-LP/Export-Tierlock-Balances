@@ -127,7 +127,16 @@
     "env_var": "SECRET_ROYALE_DYNASTY"
   },
   {
+    "nombre": "The Reel Deal",
+    "env_var": "SECRET_THE_REEL_DEAL"
+  },
+  {
+    "nombre": "Jackpot Junction",
+    "env_var": "SECRET_JACKPOT_JUNCTION"
+  },
+  {
     "nombre": "Panda God",
-    "env_var": "SECRET_PANDA_GOD"
+    "env_var": "SECRET_PANDA_GOD",
+    "env_id": "MERCHANT_ID_PANDA_GOD"
   }
 ]
