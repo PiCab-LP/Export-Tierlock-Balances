@@ -151,7 +151,7 @@
   },
   {
     "nombre": "JJreelsAdventures",
-    "env_var": "SECRET_JJREELS_ADVENTURES",
+    "env_var": "SECRET_JJREELSADVENTURES",
     "env_id": "MERCHANT_ID_ETERNIPLAY"
   },
   {
