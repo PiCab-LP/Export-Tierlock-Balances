@@ -150,8 +150,8 @@
     "env_id": "MERCHANT_ID_DOVERA"
   },
   {
-    "nombre": "JJreelsAdventure",
-    "env_var": "SECRET_JJREELS_ADVENTURE",
+    "nombre": "JJreelsAdventures",
+    "env_var": "SECRET_JJREELS_ADVENTURES",
     "env_id": "MERCHANT_ID_ETERNIPLAY"
   },
   {
