@@ -138,5 +138,30 @@
     "nombre": "Panda God",
     "env_var": "SECRET_PANDA_GOD",
     "env_id": "MERCHANT_ID_PANDA_GOD"
+  },
+  {
+    "nombre": "Token Tiger",
+    "env_var": "SECRET_TOKEN_TIGER",
+    "env_id": "MERCHANT_ID_DOVERA"
+  },
+  {
+    "nombre": "Marathon Lounge",
+    "env_var": "SECRET_MARATHON_LOUNGE",
+    "env_id": "MERCHANT_ID_DOVERA"
+  },
+  {
+    "nombre": "JJreelsAdventure",
+    "env_var": "SECRET_JJREELS_ADVENTURE",
+    "env_id": "MERCHANT_ID_ETERNIPLAY"
+  },
+  {
+    "nombre": "Snarcade",
+    "env_var": "SECRET_SNARCADE",
+    "env_id": "MERCHANT_ID_ETERNIPLAY"
+  },
+  {
+    "nombre": "Lucky Buddy",
+    "env_var": "SECRET_LUCKY_BUDDY",
+    "env_id": "MERCHANT_ID_ETERNIPLAY"
   }
 ]
