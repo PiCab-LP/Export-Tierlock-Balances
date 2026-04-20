@@ -139,6 +139,22 @@
     "env_var": "SECRET_JACKPOT_JUNCTION"
   },
   {
+    "nombre": "Huncho's World",
+    "env_var": "SECRET_HUNCHOS_WORLD"
+  },
+  {
+    "nombre": "Cash Wave",
+    "env_var": "SECRET_CASH_WAVE"
+  },
+  {
+    "nombre": "Royal Avril Gaming",
+    "env_var": "SECRET_ROYAL_AVRIL_GAMING"
+  },
+  {
+    "nombre": "Club Vpower",
+    "env_var": "SECRET_CLUB_VPOWER"
+  },
+  {
     "nombre": "Panda God",
     "env_var": "SECRET_PANDA_GOD",
     "env_id": "MERCHANT_ID_PANDA_GOD"
