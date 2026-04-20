@@ -123,6 +123,10 @@
     "env_var": "SECRET_BORN_LUCKY_GAMEROOM"
   },
   {
+    "nombre": "KiingzNation",
+    "env_var": "SECRET_KIINGZ_NATION"
+  },
+  {
     "nombre": "Royale Dynasty",
     "env_var": "SECRET_ROYALE_DYNASTY"
   },
