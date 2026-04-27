@@ -9,7 +9,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors()); // Permite que tu frontend en Vercel se conecte
+app.use(cors());
 
 // Carga de las compañías
 const companias = JSON.parse(fs.readFileSync('companias.json', 'utf8'));
@@ -147,36 +147,55 @@ app.post('/api/exportar', async (req, res) => {
         }
 
         try {
+            // 1. Generamos el CSV completo (con todos los datos)
             const json2csvParser = new Parser();
             const csv = json2csvParser.parse(todasLasTransacciones);
+            
+            // 2. Preparamos el JSON filtrado para la web (sin propina, moneda ni hash)
+            const jsonWeb = todasLasTransacciones.map(txn => ({
+                compania_nombre: txn.compania_nombre,
+                transaction_id: txn.transaction_id,
+                order_id: txn.order_id,
+                status: txn.status,
+                monto_total: txn.monto_total,
+                monto_neto: txn.monto_neto,
+                comision: txn.comision,
+                cliente_email: txn.cliente_email,
+                cliente_tel: txn.cliente_tel,
+                fecha_local: txn.fecha_local
+            }));
+
             if (jobs.has(jobId)) {
                 const job = jobs.get(jobId);
                 job.status = 'completed';
-                job.csvData = csv;
+                job.csvData = csv;         // Se guarda para cuando llamen a /api/descargar
+                job.jsonData = jsonWeb;    // Se guarda para mostrar la tabla en la web
                 job.progress = 100;
             }
         } catch (err) {
-            console.error("Error al generar CSV:", err);
+            console.error("Error al generar los datos finales:", err);
             if (jobs.has(jobId)) {
                 const job = jobs.get(jobId);
                 job.status = 'error';
-                job.error = "Error generando el archivo CSV";
+                job.error = "Error procesando los datos finales.";
             }
         }
     })();
 });
 
-// 📊 ENDPOINT PARA VERIFICAR ESTADO
+// 📊 ENDPOINT PARA VERIFICAR ESTADO Y OBTENER DATOS DE LA TABLA
 app.get('/api/estado/:jobId', (req, res) => {
     const job = jobs.get(req.params.jobId);
-    if (!job) return res.status(404).json({ error: "Trabajo no encontrado" });
+    if (!job) return res.status(404).json({ error: "Trabajo no encontrado o ya expirado" });
     
     res.json({
         status: job.status,
         progress: job.progress,
         current: job.current,
         total: job.total,
-        error: job.error
+        error: job.error,
+        // Solo enviamos el JSON si el trabajo ya terminó
+        data: job.status === 'completed' ? job.jsonData : null 
     });
 });
 
@@ -192,11 +211,10 @@ app.get('/api/descargar/:jobId', (req, res) => {
     res.header('Content-Type', 'text/csv');
     let filename = start === end ? `reporte_${start}.csv` : `reporte_consolidado_${start}_al_${end}.csv`;
     
-    // Configura Content-Disposition para que se descargue con el nombre correcto
     res.setHeader('Content-Disposition', `attachment; filename="${filename}"`);
     res.send(csvData);
     
-    // Limpieza de memoria (opcional, borramos después de descargar para no ocupar RAM)
+    // Limpieza de memoria (borramos el job para no saturar el servidor)
     jobs.delete(req.params.jobId);
 });
 
