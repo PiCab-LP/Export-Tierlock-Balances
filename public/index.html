@@ -13,6 +13,7 @@
         --text-main: #ffffff;
         --text-secondary: #9ca3af;
         --input-border: #262626;
+        --success: #10b981;
       }
 
       body {
@@ -25,11 +26,11 @@
         background-color: var(--bg-dark);
         color: var(--text-main);
         display: flex;
-        justify-content: center;
+        flex-direction: column;
         align-items: center;
         min-height: 100vh;
         margin: 0;
-        padding: 1rem;
+        padding: 0 1rem;
       }
 
       .card {
@@ -41,6 +42,15 @@
         width: 100%;
         max-width: 400px;
         border: 1px solid var(--input-border);
+        margin-top: auto;
+        margin-bottom: auto;
+        transition: margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        flex-shrink: 0;
+      }
+
+      .card.pushed {
+        margin-top: 2rem;
+        margin-bottom: 2rem;
       }
 
       .logo-container {
@@ -54,14 +64,6 @@
         margin: 0;
         letter-spacing: 0.1em;
         text-transform: uppercase;
-      }
-
-      .subtitle {
-        color: var(--text-secondary);
-        font-size: 0.75rem;
-        margin-top: 0.5rem;
-        margin-bottom: 2rem;
-        letter-spacing: 0.05em;
       }
 
       h2 {
@@ -144,7 +146,6 @@
         transform: none;
       }
 
-      /* Estilos del Spinner */
       .spinner {
         width: 18px;
         height: 18px;
@@ -171,7 +172,6 @@
         display: none;
       }
 
-      /* Barra de Progreso */
       .progress-container {
         width: 100%;
         background-color: rgba(255, 255, 255, 0.05);
@@ -196,6 +196,148 @@
         margin-top: 0.5rem;
         display: none;
         font-weight: 500;
+      }
+
+      /* Estilos para la Tabla */
+      .table-wrapper {
+        width: 98%;
+        max-width: 1800px;
+        background: var(--card-bg);
+        border-radius: 1rem;
+        border: 1px solid var(--input-border);
+        overflow-x: auto;
+        display: none; /* Oculta por defecto */
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        margin: 0 auto 2rem auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        text-align: left;
+        font-size: 0.8125rem;
+        table-layout: auto;
+      }
+
+      th {
+        background: #171717;
+        padding: 0.875rem 0.625rem;
+        color: var(--primary);
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 0.7rem;
+        letter-spacing: 0.05em;
+        border-bottom: 1px solid var(--input-border);
+      }
+
+      td {
+        padding: 0.75rem 0.625rem;
+        border-bottom: 1px solid var(--input-border);
+        color: var(--text-secondary);
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      tr:hover td {
+        background: #1a1a1a;
+        color: var(--text-main);
+      }
+
+      .status-pill {
+        padding: 0.25rem 0.75rem;
+        border-radius: 9999px;
+        background: rgba(16, 185, 129, 0.1);
+        color: var(--success);
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .monto {
+        color: var(--text-main);
+        font-weight: 600;
+      }
+
+      .company-name {
+        color: var(--text-main);
+        font-weight: 500;
+        min-width: 120px;
+      }
+
+      .truncate {
+        max-width: 150px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: block;
+      }
+
+      .email-cell {
+        max-width: 180px;
+      }
+
+      .id-cell {
+        max-width: 120px;
+        font-family: monospace;
+      }
+
+      .btn-export {
+        background-color: #059669;
+        margin-top: 1rem;
+        display: none;
+      }
+
+      .btn-export:hover {
+        background-color: #047857;
+      }
+
+      .filter-container {
+        width: 98%;
+        max-width: 1800px;
+        margin: 0 auto 1rem auto;
+        display: none;
+        align-items: center;
+        gap: 1rem;
+        background: var(--card-bg);
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.75rem;
+        border: 1px solid var(--input-border);
+        box-sizing: border-box;
+      }
+
+      .filter-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+      }
+
+      .filter-label {
+        font-size: 0.75rem;
+        font-weight: 600;
+        color: var(--primary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      select {
+        background-color: #171717;
+        border: 1px solid var(--input-border);
+        color: var(--text-main);
+        padding: 0.5rem 2rem 0.5rem 1rem;
+        border-radius: 0.5rem;
+        outline: none;
+        cursor: pointer;
+        font-size: 0.875rem;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 0.75rem center;
+        background-size: 1rem;
+      }
+
+      select:focus {
+        border-color: var(--primary);
       }
     </style>
   </head>
@@ -224,16 +366,47 @@
 
       <button id="btnExportar">
         <div class="spinner" id="loader"></div>
-        <span id="btnText">Descargar CSV</span>
+        <span id="btnText">Generar Reporte</span>
       </button>
 
-      <!-- Contenedor progreso -->
+      <button id="btnDescargar" class="btn-export">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+        Exportar a Excel
+      </button>
+
       <div class="progress-container" id="progressContainer">
         <div class="progress-bar" id="progressBar"></div>
       </div>
       <div class="progress-text" id="progressText">Calculando...</div>
 
       <div id="mensaje"></div>
+    </div>
+
+    <div class="filter-container" id="filterContainer">
+      <div class="filter-group">
+        <span class="filter-label">Filtrar por Compañía:</span>
+        <select id="filtroCompania">
+          <option value="all">Todas las compañías</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="table-wrapper" id="tableWrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>Compañía</th>
+            <th>ID Transacción</th>
+            <th>Orden ID</th>
+            <th>Estado</th>
+            <th>Monto Neto</th>
+            <th>Email</th>
+            <th>Teléfono</th>
+            <th>Fecha Local</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
     </div>
 
     <script>
@@ -252,15 +425,23 @@
           const loader = document.getElementById("loader");
           const btnText = document.getElementById("btnText");
           const msj = document.getElementById("mensaje");
+          const btnDescargar = document.getElementById("btnDescargar");
           const progressContainer =
             document.getElementById("progressContainer");
           const progressBar = document.getElementById("progressBar");
           const progressText = document.getElementById("progressText");
+          const tableWrapper = document.getElementById("tableWrapper");
+          const tableBody = document.getElementById("tableBody");
 
+          // Reset UI
           btn.disabled = true;
           loader.style.display = "block";
           btnText.innerText = "Iniciando...";
           msj.style.display = "none";
+          btnDescargar.style.display = "none";
+          document.getElementById("filterContainer").style.display = "none";
+          tableWrapper.style.display = "none";
+          tableBody.innerHTML = "";
           progressContainer.style.display = "block";
           progressText.style.display = "block";
           progressBar.style.width = "0%";
@@ -300,26 +481,30 @@
               if (jobStatus === "processing") {
                 progressBar.style.width = `${statusData.progress}%`;
                 progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
+              } else if (jobStatus === "completed") {
+                // Trabajo terminado: procesar JSON para la tabla
+                progressBar.style.width = "100%";
+                progressText.innerText = "¡Finalizado! Renderizando...";
+
+                renderizarTabla(statusData.data);
+
+                msj.style.color = "#34d399";
+                msj.innerText = `✅ Se encontraron ${statusData.data.length} transacciones.`;
+                msj.style.display = "block";
+                
+                // Configurar descarga
+                btnDescargar.style.display = "flex";
+                btnDescargar.onclick = () => {
+                  const link = document.createElement("a");
+                  link.href = `${API_BASE}/descargar/${jobId}`;
+                  document.body.appendChild(link);
+                  link.click();
+                  document.body.removeChild(link);
+                };
               } else if (jobStatus === "error") {
                 throw new Error(statusData.error || "Error durante extracción");
               }
             }
-
-            // Generado con éxito, descargar archivo
-            progressBar.style.width = "100%";
-            progressText.innerText = "¡Finalizado! Descargando...";
-
-            const downloadUrl = `${API_BASE}/descargar/${jobId}`;
-            const a = document.createElement("a");
-            a.href = downloadUrl;
-            // Intentamos forzar el clic nativo
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            msj.style.color = "#34d399";
-            msj.innerText = "✅ Reporte descargado con éxito";
-            msj.style.display = "block";
           } catch (e) {
             msj.style.color = "#f87171";
             msj.innerText = "❌ " + e.message;
@@ -327,13 +512,84 @@
           } finally {
             btn.disabled = false;
             loader.style.display = "none";
-            btnText.innerText = "Descargar CSV";
+            btnText.innerText = "Generar Reporte";
             setTimeout(() => {
               progressContainer.style.display = "none";
               progressText.style.display = "none";
-            }, 4000);
+            }, 3000);
           }
         });
+
+      // Función para pintar los datos en el DOM
+      function renderizarTabla(transacciones) {
+        const tableBody = document.getElementById("tableBody");
+        const tableWrapper = document.getElementById("tableWrapper");
+
+        if (!transacciones || transacciones.length === 0) return;
+
+        transacciones.forEach((txn) => {
+          const row = `
+            <tr>
+              <td class="company-name" title="${txn.compania_nombre}">${txn.compania_nombre}</td>
+              <td class="id-cell" title="${txn.transaction_id}">${txn.transaction_id}</td>
+              <td class="id-cell" title="${txn.order_id}">${txn.order_id}</td>
+              <td><span class="status-pill">${txn.status}</span></td>
+              <td class="monto">$${txn.monto_neto.toFixed(2)}</td>
+              <td class="email-cell" title="${txn.cliente_email || "" }">${txn.cliente_email || "N/A"}</td>
+              <td>${txn.cliente_tel || "N/A"}</td>
+              <td>${txn.fecha_local}</td>
+            </tr>
+          `;
+          tableBody.insertAdjacentHTML("beforeend", row);
+        });
+
+        // Mostrar la tabla una vez llena
+        document.querySelector(".card").classList.add("pushed");
+        
+        // Configurar Filtro
+        configurarFiltro(transacciones);
+        
+        tableWrapper.style.display = "block";
+      }
+
+      function configurarFiltro(transacciones) {
+        const filterContainer = document.getElementById("filterContainer");
+        const select = document.getElementById("filtroCompania");
+        const tableBody = document.getElementById("tableBody");
+
+        // Limpiar opciones previas (excepto la primera)
+        select.innerHTML = '<option value="all">Todas las compañías</option>';
+
+        // Obtener compañías únicas
+        const companiasUnicas = [
+          ...new Set(transacciones.map((t) => t.compania_nombre)),
+        ].sort();
+
+        // Llenar selector
+        companiasUnicas.forEach((nombre) => {
+          const opt = document.createElement("option");
+          opt.value = nombre;
+          opt.textContent = nombre;
+          select.appendChild(opt);
+        });
+
+        // Evento de filtrado
+        select.onchange = () => {
+          const seleccion = select.value;
+          const filas = tableBody.querySelectorAll("tr");
+
+          filas.forEach((fila) => {
+            const nombreFila = fila.querySelector(".company-name").textContent;
+            if (seleccion === "all" || nombreFila === seleccion) {
+              fila.style.display = "";
+            } else {
+              fila.style.display = "none";
+            }
+          });
+        };
+
+        filterContainer.style.display = "flex";
+      }
     </script>
   </body>
 </html>
