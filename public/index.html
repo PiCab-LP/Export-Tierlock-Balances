@@ -250,6 +250,11 @@
       font-weight: 600;
     }
 
+    .status-pill.pending {
+      background: rgba(251, 191, 36, 0.1);
+      color: var(--primary);
+    }
+
     .monto {
       color: var(--text-main);
       font-weight: 600;
@@ -685,7 +690,7 @@
               <td class="company-name" title="${txn.compania_nombre}">${txn.compania_nombre}</td>
               <td class="id-cell" title="${txn.transaction_id}">${txn.transaction_id}</td>
               <td class="id-cell" title="${txn.order_id}">${txn.order_id}</td>
-              <td><span class="status-pill">${txn.status}</span></td>
+              <td><span class="status-pill ${txn.status ? txn.status.toLowerCase() : ''}">${txn.status}</span></td>
               <td class="monto">$${txn.monto_neto.toFixed(2)}</td>
               <td class="email-cell" title="${txn.cliente_email || ""}">${txn.cliente_email || "N/A"}</td>
               <td>${txn.cliente_tel || "N/A"}</td>
