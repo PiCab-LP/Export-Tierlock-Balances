@@ -32,9 +32,16 @@ function ajustarHoraLocal(fechaISO) {
 
 const jobs = new Map();
 
+// 🏢 ENDPOINT PARA OBTENER LISTA DE COMPAÑÍAS
+app.get('/api/companias', (req, res) => {
+    res.json(companias.map(c => c.nombre));
+});
+
+
 // 🚀 ENDPOINT PARA EXPORTAR (Inicia el trabajo)
 app.post('/api/exportar', async (req, res) => {
-    const { fechaInicio, fechaFin, fecha } = req.body;
+    const { fechaInicio, fechaFin, fecha, selectedCompanies } = req.body;
+
 
     const start = fechaInicio || fecha;
     const end = fechaFin || fecha;
@@ -47,15 +54,24 @@ app.post('/api/exportar', async (req, res) => {
         return res.status(400).json({ error: "La fecha de inicio no puede ser mayor a la de fin" });
     }
 
+    const filteredCompanias = (selectedCompanies && selectedCompanies.length > 0)
+        ? companias.filter(c => selectedCompanies.includes(c.nombre))
+        : companias;
+
+    if (filteredCompanias.length === 0) {
+        return res.status(400).json({ error: "No se seleccionaron compañías válidas" });
+    }
+
     const jobId = Date.now().toString();
     jobs.set(jobId, { 
         status: 'processing', 
         progress: 0, 
         current: 0, 
-        total: companias.length,
+        total: filteredCompanias.length,
         start,
         end
     });
+
 
     res.json({ jobId });
 
@@ -65,15 +81,16 @@ app.post('/api/exportar', async (req, res) => {
         let todasLasTransacciones = [];
         let i = 0;
 
-        for (const compania of companias) {
+        for (const compania of filteredCompanias) {
             i++;
             if (jobs.has(jobId)) {
                 const job = jobs.get(jobId);
                 job.current = i;
-                job.progress = Math.round((i / companias.length) * 100);
+                job.progress = Math.round((i / filteredCompanias.length) * 100);
             }
 
-            console.log(`🚀 [Job ${jobId}] Procesando: ${compania.nombre} (${i}/${companias.length})...`);
+            console.log(`🚀 [Job ${jobId}] Procesando: ${compania.nombre} (${i}/${filteredCompanias.length})...`);
+
 
             const merchantId = compania.env_id ? process.env[compania.env_id] : process.env.MERCHANT_ID_GLOBAL;
             const merchantSecret = process.env[compania.env_var];
