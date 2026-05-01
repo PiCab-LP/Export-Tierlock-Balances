@@ -1,595 +1,739 @@
 <!doctype html>
 <html lang="es">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Tierlock Reportes</title>
-    <style>
-      :root {
-        --primary: #fbbf24;
-        --primary-hover: #f59e0b;
-        --bg-dark: #0a0a0a;
-        --card-bg: #111111;
-        --text-main: #ffffff;
-        --text-secondary: #9ca3af;
-        --input-border: #262626;
-        --success: #10b981;
-      }
 
-      body {
-        font-family:
-          "Inter",
-          "Segoe UI",
-          system-ui,
-          -apple-system,
-          sans-serif;
-        background-color: var(--bg-dark);
-        color: var(--text-main);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        min-height: 100vh;
-        margin: 0;
-        padding: 0 1rem;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tierlock Reportes</title>
+  <style>
+    :root {
+      --primary: #fbbf24;
+      --primary-hover: #f59e0b;
+      --bg-dark: #0a0a0a;
+      --card-bg: #111111;
+      --text-main: #ffffff;
+      --text-secondary: #9ca3af;
+      --input-border: #262626;
+      --success: #10b981;
+    }
 
-      .card {
-        background: var(--card-bg);
-        padding: 2.5rem 2rem;
-        border-radius: 1rem;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        text-align: center;
-        width: 100%;
-        max-width: 400px;
-        border: 1px solid var(--input-border);
-        margin-top: auto;
-        margin-bottom: auto;
-        transition: margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        flex-shrink: 0;
-      }
+    body {
+      font-family: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 0 1rem;
+    }
 
-      .card.pushed {
-        margin-top: 2rem;
-        margin-bottom: 2rem;
-      }
+    .card {
+      background: var(--card-bg);
+      padding: 2.5rem 2rem;
+      border-radius: 1rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      text-align: center;
+      width: 100%;
+      max-width: 400px;
+      border: 1px solid var(--input-border);
+      margin-top: auto;
+      margin-bottom: auto;
+      transition: margin 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+    }
 
-      .logo-container {
-        margin-bottom: 2rem;
-      }
+    .card.pushed {
+      margin-top: 2rem;
+      margin-bottom: 2rem;
+    }
 
-      h1 {
-        color: var(--primary);
-        font-size: 1.875rem;
-        font-weight: 800;
-        margin: 0;
-        letter-spacing: 0.1em;
-        text-transform: uppercase;
-      }
+    .logo-container {
+      margin-bottom: 2rem;
+    }
 
-      h2 {
-        color: var(--text-main);
-        font-size: 1.125rem;
-        margin-bottom: 0.5rem;
-        font-weight: 600;
-      }
+    h1 {
+      color: var(--primary);
+      font-size: 1.875rem;
+      font-weight: 800;
+      margin: 0;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
 
-      p {
-        color: var(--text-secondary);
-        font-size: 0.875rem;
-        margin-bottom: 2rem;
-        line-height: 1.5;
-      }
+    h2 {
+      color: var(--text-main);
+      font-size: 1.125rem;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
 
-      .form-group {
-        text-align: left;
-        margin-bottom: 1.5rem;
-      }
+    p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+      margin-bottom: 2rem;
+      line-height: 1.5;
+    }
 
-      label {
-        display: block;
-        color: var(--text-main);
-        font-size: 0.75rem;
-        font-weight: 600;
-        margin-bottom: 0.5rem;
-      }
+    .form-group {
+      text-align: left;
+      margin-bottom: 1.5rem;
+    }
 
-      input[type="date"] {
-        width: 100%;
-        padding: 0.875rem;
-        background-color: #171717;
-        border: 1px solid var(--input-border);
-        border-radius: 0.5rem;
-        font-size: 1rem;
-        color: var(--text-main);
-        outline: none;
-        transition: all 0.2s;
-        box-sizing: border-box;
-        color-scheme: dark;
-      }
+    label {
+      display: block;
+      color: var(--text-main);
+      font-size: 0.75rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
 
-      input[type="date"]:focus {
-        border-color: var(--primary);
-        box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
-      }
+    input[type="date"] {
+      width: 100%;
+      padding: 0.875rem;
+      background-color: #171717;
+      border: 1px solid var(--input-border);
+      border-radius: 0.5rem;
+      font-size: 1rem;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+      box-sizing: border-box;
+      color-scheme: dark;
+    }
 
-      button {
-        background-color: var(--primary);
-        color: #000;
-        border: none;
-        padding: 0.875rem 1.5rem;
-        font-size: 1rem;
-        border-radius: 0.625rem;
-        cursor: pointer;
-        width: 100%;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 12px;
-        transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-        margin-top: 1rem;
-      }
+    input[type="date"]:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+    }
 
-      button:hover {
-        background-color: var(--primary-hover);
-        transform: translateY(-1px);
-      }
+    button {
+      background-color: var(--primary);
+      color: #000;
+      border: none;
+      padding: 0.875rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 0.625rem;
+      cursor: pointer;
+      width: 100%;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      margin-top: 1rem;
+    }
 
-      button:active {
-        transform: translateY(0);
-      }
+    button:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-1px);
+    }
 
-      button:disabled {
-        background-color: #404040;
-        color: #737373;
-        cursor: not-allowed;
-        transform: none;
-      }
+    button:active {
+      transform: translateY(0);
+    }
 
-      .spinner {
-        width: 18px;
-        height: 18px;
-        border: 2.5px solid rgba(0, 0, 0, 0.1);
-        border-radius: 50%;
-        border-top-color: #000;
-        animation: spin 0.8s linear infinite;
-        display: none;
-      }
+    button:disabled {
+      background-color: #404040;
+      color: #737373;
+      cursor: not-allowed;
+      transform: none;
+    }
 
-      @keyframes spin {
-        to {
-          transform: rotate(360deg);
+    .spinner {
+      width: 18px;
+      height: 18px;
+      border: 2.5px solid rgba(0, 0, 0, 0.1);
+      border-radius: 50%;
+      border-top-color: #000;
+      animation: spin 0.8s linear infinite;
+      display: none;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #mensaje {
+      margin-top: 1.5rem;
+      padding: 0.75rem;
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      font-weight: 500;
+      background-color: rgba(255, 255, 255, 0.05);
+      display: none;
+    }
+
+    .progress-container {
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--input-border);
+      border-radius: 0.5rem;
+      margin-top: 1.5rem;
+      overflow: hidden;
+      display: none;
+      position: relative;
+    }
+
+    .progress-bar {
+      height: 8px;
+      background-color: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .progress-text {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      margin-top: 0.5rem;
+      display: none;
+      font-weight: 500;
+    }
+
+    /* Estilos para la Tabla */
+    .table-wrapper {
+      width: 98%;
+      max-width: 1800px;
+      background: var(--card-bg);
+      border-radius: 1rem;
+      border: 1px solid var(--input-border);
+      overflow-x: auto;
+      display: none;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      margin: 0 auto 2rem auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.8125rem;
+      table-layout: auto;
+    }
+
+    th {
+      background: #171717;
+      padding: 0.875rem 0.625rem;
+      color: var(--primary);
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--input-border);
+    }
+
+    td {
+      padding: 0.75rem 0.625rem;
+      border-bottom: 1px solid var(--input-border);
+      color: var(--text-secondary);
+      max-width: 200px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    tr:hover td {
+      background: #1a1a1a;
+      color: var(--text-main);
+    }
+
+    .status-pill {
+      padding: 0.25rem 0.75rem;
+      border-radius: 9999px;
+      background: rgba(16, 185, 129, 0.1);
+      color: var(--success);
+      font-size: 0.75rem;
+      font-weight: 600;
+    }
+
+    .monto {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .company-name {
+      color: var(--text-main);
+      font-weight: 500;
+      min-width: 120px;
+    }
+
+    .email-cell {
+      max-width: 180px;
+    }
+
+    .id-cell {
+      max-width: 120px;
+      font-family: monospace;
+    }
+
+    .btn-export {
+      background-color: #059669;
+      margin-top: 1rem;
+      display: none;
+    }
+
+    .btn-export:hover {
+      background-color: #047857;
+    }
+
+    .filter-container {
+      width: 98%;
+      max-width: 1800px;
+      margin: 0 auto 1rem auto;
+      display: none;
+      align-items: center;
+      gap: 1rem;
+      background: var(--card-bg);
+      padding: 0.75rem 1.25rem;
+      border-radius: 0.75rem;
+      border: 1px solid var(--input-border);
+      box-sizing: border-box;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .filter-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    select {
+      background-color: #171717;
+      border: 1px solid var(--input-border);
+      color: var(--text-main);
+      padding: 0.5rem 2rem 0.5rem 1rem;
+      border-radius: 0.5rem;
+      outline: none;
+      cursor: pointer;
+      font-size: 0.875rem;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      background-size: 1rem;
+    }
+
+    select:focus {
+      border-color: var(--primary);
+    }
+
+    /* Estilos para Selección de Compañías */
+    .selection-mode {
+      position: relative;
+      display: flex;
+      background: #171717;
+      border: 1px solid var(--input-border);
+      border-radius: 0.75rem;
+      padding: 0.25rem;
+      margin-bottom: 1.5rem;
+      height: 42px;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .mode-slider {
+      position: absolute;
+      top: 0.25rem;
+      left: 0.25rem;
+      width: calc(50% - 0.25rem);
+      height: calc(100% - 0.5rem);
+      background: var(--primary);
+      border-radius: 0.5rem;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 1;
+    }
+
+    .mode-option {
+      position: relative;
+      flex: 1;
+      text-align: center;
+      cursor: pointer;
+      font-size: 0.875rem;
+      font-weight: 700;
+      z-index: 2;
+      transition: color 0.3s;
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      user-select: none;
+    }
+
+    .mode-option.active {
+      color: #000;
+    }
+
+    #companySelector {
+      display: none;
+      max-height: 200px;
+      overflow-y: auto;
+      text-align: left;
+      background: #171717;
+      border: 1px solid var(--input-border);
+      border-radius: 0.5rem;
+      padding: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .company-checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem;
+      cursor: pointer;
+      border-radius: 0.25rem;
+      transition: background 0.2s;
+    }
+
+    .company-checkbox:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .company-checkbox input {
+      accent-color: var(--primary);
+      width: 16px;
+      height: 16px;
+    }
+
+    .company-checkbox span {
+      font-size: 0.875rem;
+    }
+
+    /* Custom Scrollbar */
+    #companySelector::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    #companySelector::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    #companySelector::-webkit-scrollbar-thumb {
+      background: #333;
+      border-radius: 3px;
+    }
+
+    #companySelector::-webkit-scrollbar-thumb:hover {
+      background: #444;
+    }
+  </style>
+
+</head>
+
+<body>
+  <div class="card">
+    <div class="logo-container">
+      <h1>TIERLOCK</h1>
+    </div>
+    <h2>Reporte de Depósitos</h2>
+    <p>
+      Selecciona un rango de fechas para verificar los depósitos de las
+      compañías.
+    </p>
+
+    <div class="form-group" style="display: flex; gap: 10px">
+      <div style="flex: 1">
+        <label for="fechaInicio">Fecha Inicio</label>
+        <input type="date" id="fechaInicio" />
+      </div>
+      <div style="flex: 1">
+        <label for="fechaFin">Fecha Fin</label>
+        <input type="date" id="fechaFin" />
+      </div>
+    </div>
+
+    <label>Modo de Ejecución</label>
+    <div class="selection-mode" id="selectionModeContainer">
+      <div class="mode-slider" id="modeSlider"></div>
+      <div class="mode-option active" id="modeAll">Todas</div>
+      <div class="mode-option" id="modeSpecific">Seleccionar</div>
+    </div>
+
+    <div id="companySelector">
+      <!-- Se llenará dinámicamente -->
+    </div>
+
+    <button id="btnExportar">
+      <div class="spinner" id="loader"></div>
+      <span id="btnText">Generar Reporte</span>
+    </button>
+
+    <button id="btnDescargar" class="btn-export">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none"
+        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+        <polyline points="7 10 12 15 17 10"></polyline>
+        <line x1="12" y1="15" x2="12" y2="3"></line>
+      </svg>
+      Exportar a Excel
+    </button>
+
+    <div class="progress-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-text" id="progressText">Calculando...</div>
+    <div id="mensaje"></div>
+  </div>
+
+  <div class="filter-container" id="filterContainer">
+    <div class="filter-group">
+      <span class="filter-label">Filtrar por Compañía:</span>
+      <select id="filtroCompania">
+        <option value="all">Todas las compañías</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="table-wrapper" id="tableWrapper">
+    <table>
+      <thead>
+        <tr>
+          <th>Compañía</th>
+          <th>ID Transacción</th>
+          <th>Orden ID</th>
+          <th>Estado</th>
+          <th>Monto Neto</th>
+          <th>Email</th>
+          <th>Teléfono</th>
+          <th>Fecha Local</th>
+        </tr>
+      </thead>
+      <tbody id="tableBody"></tbody>
+    </table>
+  </div>
+
+  <script>
+    const API_URL = "https://export-tierlock-balances-production-ecbf.up.railway.app/api/exportar";
+    const API_BASE = API_URL.replace("/exportar", "");
+
+    document.getElementById("fechaInicio").valueAsDate = new Date();
+    document.getElementById("fechaFin").valueAsDate = new Date();
+
+    let seleccionActual = "all";
+    const modeAll = document.getElementById("modeAll");
+    const modeSpecific = document.getElementById("modeSpecific");
+    const companySelector = document.getElementById("companySelector");
+    const modeSlider = document.getElementById("modeSlider");
+
+    // Cambiar modo de selección
+    modeAll.addEventListener("click", () => {
+      seleccionActual = "all";
+      modeAll.classList.add("active");
+      modeSpecific.classList.remove("active");
+      companySelector.style.display = "none";
+      modeSlider.style.transform = "translateX(0)";
+    });
+
+    modeSpecific.addEventListener("click", () => {
+      seleccionActual = "specific";
+      modeSpecific.classList.add("active");
+      modeAll.classList.remove("active");
+      companySelector.style.display = "block";
+      modeSlider.style.transform = "translateX(100%)";
+    });
+
+    // Cargar lista de compañías
+    async function cargarCompanias() {
+      try {
+        const res = await fetch(`${API_BASE}/companias`);
+        const companias = await res.json();
+        companySelector.innerHTML = companias
+          .map(
+            (nombre) => `
+            <label class="company-checkbox">
+              <input type="checkbox" value="${nombre}">
+              <span>${nombre}</span>
+            </label>
+          `,
+          )
+          .join("");
+      } catch (err) {
+        console.error("Error cargando compañías:", err);
+      }
+    }
+    cargarCompanias();
+
+    document.getElementById("btnExportar").addEventListener("click", async () => {
+      const fechaInicio = document.getElementById("fechaInicio").value;
+      const fechaFin = document.getElementById("fechaFin").value;
+
+      // Obtener compañías seleccionadas si el modo es "specific"
+      let selectedCompanies = [];
+      if (seleccionActual === "specific") {
+        const checkboxes = companySelector.querySelectorAll("input:checked");
+        selectedCompanies = Array.from(checkboxes).map(cb => cb.value);
+
+        if (selectedCompanies.length === 0) {
+          alert("Por favor, selecciona al menos una compañía.");
+          return;
         }
       }
 
-      #mensaje {
-        margin-top: 1.5rem;
-        padding: 0.75rem;
-        border-radius: 0.5rem;
-        font-size: 0.875rem;
-        font-weight: 500;
-        background-color: rgba(255, 255, 255, 0.05);
-        display: none;
-      }
+      const btn = document.getElementById("btnExportar");
+      const loader = document.getElementById("loader");
+      const btnText = document.getElementById("btnText");
+      const msj = document.getElementById("mensaje");
+      const btnDescargar = document.getElementById("btnDescargar");
+      const progressContainer = document.getElementById("progressContainer");
+      const progressBar = document.getElementById("progressBar");
+      const progressText = document.getElementById("progressText");
+      const tableWrapper = document.getElementById("tableWrapper");
+      const tableBody = document.getElementById("tableBody");
 
-      .progress-container {
-        width: 100%;
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid var(--input-border);
-        border-radius: 0.5rem;
-        margin-top: 1.5rem;
-        overflow: hidden;
-        display: none;
-        position: relative;
-      }
+      // Reset UI
+      btn.disabled = true;
+      loader.style.display = "block";
+      btnText.innerText = "Iniciando...";
+      msj.style.display = "none";
+      btnDescargar.style.display = "none";
+      document.getElementById("filterContainer").style.display = "none";
+      tableWrapper.style.display = "none";
+      tableBody.innerHTML = "";
+      progressContainer.style.display = "block";
+      progressText.style.display = "block";
+      progressBar.style.width = "0%";
+      progressText.innerText = "Preparando...";
 
-      .progress-bar {
-        height: 8px;
-        background-color: var(--primary);
-        width: 0%;
-        transition: width 0.3s ease;
-      }
-
-      .progress-text {
-        font-size: 0.75rem;
-        color: var(--text-secondary);
-        margin-top: 0.5rem;
-        display: none;
-        font-weight: 500;
-      }
-
-      /* Estilos para la Tabla */
-      .table-wrapper {
-        width: 98%;
-        max-width: 1800px;
-        background: var(--card-bg);
-        border-radius: 1rem;
-        border: 1px solid var(--input-border);
-        overflow-x: auto;
-        display: none; /* Oculta por defecto */
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-        margin: 0 auto 2rem auto;
-      }
-
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        text-align: left;
-        font-size: 0.8125rem;
-        table-layout: auto;
-      }
-
-      th {
-        background: #171717;
-        padding: 0.875rem 0.625rem;
-        color: var(--primary);
-        font-weight: 600;
-        text-transform: uppercase;
-        font-size: 0.7rem;
-        letter-spacing: 0.05em;
-        border-bottom: 1px solid var(--input-border);
-      }
-
-      td {
-        padding: 0.75rem 0.625rem;
-        border-bottom: 1px solid var(--input-border);
-        color: var(--text-secondary);
-        max-width: 200px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-      }
-
-      tr:hover td {
-        background: #1a1a1a;
-        color: var(--text-main);
-      }
-
-      .status-pill {
-        padding: 0.25rem 0.75rem;
-        border-radius: 9999px;
-        background: rgba(16, 185, 129, 0.1);
-        color: var(--success);
-        font-size: 0.75rem;
-        font-weight: 600;
-      }
-
-      .monto {
-        color: var(--text-main);
-        font-weight: 600;
-      }
-
-      .company-name {
-        color: var(--text-main);
-        font-weight: 500;
-        min-width: 120px;
-      }
-
-      .truncate {
-        max-width: 150px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        display: block;
-      }
-
-      .email-cell {
-        max-width: 180px;
-      }
-
-      .id-cell {
-        max-width: 120px;
-        font-family: monospace;
-      }
-
-      .btn-export {
-        background-color: #059669;
-        margin-top: 1rem;
-        display: none;
-      }
-
-      .btn-export:hover {
-        background-color: #047857;
-      }
-
-      .filter-container {
-        width: 98%;
-        max-width: 1800px;
-        margin: 0 auto 1rem auto;
-        display: none;
-        align-items: center;
-        gap: 1rem;
-        background: var(--card-bg);
-        padding: 0.75rem 1.25rem;
-        border-radius: 0.75rem;
-        border: 1px solid var(--input-border);
-        box-sizing: border-box;
-      }
-
-      .filter-group {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-      }
-
-      .filter-label {
-        font-size: 0.75rem;
-        font-weight: 600;
-        color: var(--primary);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      select {
-        background-color: #171717;
-        border: 1px solid var(--input-border);
-        color: var(--text-main);
-        padding: 0.5rem 2rem 0.5rem 1rem;
-        border-radius: 0.5rem;
-        outline: none;
-        cursor: pointer;
-        font-size: 0.875rem;
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%239ca3af'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        background-size: 1rem;
-      }
-
-      select:focus {
-        border-color: var(--primary);
-      }
-    </style>
-  </head>
-
-  <body>
-    <div class="card">
-      <div class="logo-container">
-        <h1>TIERLOCK</h1>
-      </div>
-      <h2>Reporte de Depósitos</h2>
-      <p>
-        Selecciona un rango de fechas para verificar los depósitos de las
-        compañías.
-      </p>
-
-      <div class="form-group" style="display: flex; gap: 10px">
-        <div style="flex: 1">
-          <label for="fechaInicio">Fecha Inicio</label>
-          <input type="date" id="fechaInicio" />
-        </div>
-        <div style="flex: 1">
-          <label for="fechaFin">Fecha Fin</label>
-          <input type="date" id="fechaFin" />
-        </div>
-      </div>
-
-      <button id="btnExportar">
-        <div class="spinner" id="loader"></div>
-        <span id="btnText">Generar Reporte</span>
-      </button>
-
-      <button id="btnDescargar" class="btn-export">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        Exportar a Excel
-      </button>
-
-      <div class="progress-container" id="progressContainer">
-        <div class="progress-bar" id="progressBar"></div>
-      </div>
-      <div class="progress-text" id="progressText">Calculando...</div>
-
-      <div id="mensaje"></div>
-    </div>
-
-    <div class="filter-container" id="filterContainer">
-      <div class="filter-group">
-        <span class="filter-label">Filtrar por Compañía:</span>
-        <select id="filtroCompania">
-          <option value="all">Todas las compañías</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="table-wrapper" id="tableWrapper">
-      <table>
-        <thead>
-          <tr>
-            <th>Compañía</th>
-            <th>ID Transacción</th>
-            <th>Orden ID</th>
-            <th>Estado</th>
-            <th>Monto Neto</th>
-            <th>Email</th>
-            <th>Teléfono</th>
-            <th>Fecha Local</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
-    </div>
-
-    <script>
-      const API_URL =
-        "https://export-tierlock-balances-production-ecbf.up.railway.app/api/exportar";
-
-      document.getElementById("fechaInicio").valueAsDate = new Date();
-      document.getElementById("fechaFin").valueAsDate = new Date();
-
-      document
-        .getElementById("btnExportar")
-        .addEventListener("click", async () => {
-          const fechaInicio = document.getElementById("fechaInicio").value;
-          const fechaFin = document.getElementById("fechaFin").value;
-          const btn = document.getElementById("btnExportar");
-          const loader = document.getElementById("loader");
-          const btnText = document.getElementById("btnText");
-          const msj = document.getElementById("mensaje");
-          const btnDescargar = document.getElementById("btnDescargar");
-          const progressContainer =
-            document.getElementById("progressContainer");
-          const progressBar = document.getElementById("progressBar");
-          const progressText = document.getElementById("progressText");
-          const tableWrapper = document.getElementById("tableWrapper");
-          const tableBody = document.getElementById("tableBody");
-
-          // Reset UI
-          btn.disabled = true;
-          loader.style.display = "block";
-          btnText.innerText = "Iniciando...";
-          msj.style.display = "none";
-          btnDescargar.style.display = "none";
-          document.getElementById("filterContainer").style.display = "none";
-          tableWrapper.style.display = "none";
-          tableBody.innerHTML = "";
-          progressContainer.style.display = "block";
-          progressText.style.display = "block";
-          progressBar.style.width = "0%";
-          progressText.innerText = "Preparando...";
-
-          try {
-            // Iniciar tarea asíncrona en el servidor
-            const response = await fetch(API_URL, {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ fechaInicio, fechaFin }),
-            });
-
-            if (!response.ok) {
-              const error = await response.json();
-              throw new Error(error.error || "Error al iniciar proceso");
-            }
-
-            const data = await response.json();
-            const jobId = data.jobId;
-
-            let jobStatus = "processing";
-            const API_BASE = API_URL.replace("/exportar", "");
-
-            btnText.innerText = "Procesando...";
-
-            // Poll el progreso del trabajo
-            while (jobStatus === "processing") {
-              await new Promise((r) => setTimeout(r, 1500)); // Chequear cada 1.5s
-              const statusRes = await fetch(`${API_BASE}/estado/${jobId}`);
-              const statusData = await statusRes.json();
-
-              if (statusData.error) throw new Error(statusData.error);
-
-              jobStatus = statusData.status;
-
-              if (jobStatus === "processing") {
-                progressBar.style.width = `${statusData.progress}%`;
-                progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
-              } else if (jobStatus === "completed") {
-                // Trabajo terminado: procesar JSON para la tabla
-                progressBar.style.width = "100%";
-                progressText.innerText = "¡Finalizado! Renderizando...";
-
-                renderizarTabla(statusData.data);
-
-                msj.style.color = "#34d399";
-                msj.innerText = `✅ Se encontraron ${statusData.data.length} transacciones.`;
-                msj.style.display = "block";
-                
-                // Configurar descarga
-                btnDescargar.style.display = "flex";
-                btnDescargar.onclick = () => {
-                  const link = document.createElement("a");
-                  link.href = `${API_BASE}/descargar/${jobId}`;
-                  document.body.appendChild(link);
-                  link.click();
-                  document.body.removeChild(link);
-                };
-              } else if (jobStatus === "error") {
-                throw new Error(statusData.error || "Error durante extracción");
-              }
-            }
-          } catch (e) {
-            msj.style.color = "#f87171";
-            msj.innerText = "❌ " + e.message;
-            msj.style.display = "block";
-          } finally {
-            btn.disabled = false;
-            loader.style.display = "none";
-            btnText.innerText = "Generar Reporte";
-            setTimeout(() => {
-              progressContainer.style.display = "none";
-              progressText.style.display = "none";
-            }, 3000);
-          }
+      try {
+        const response = await fetch(API_URL, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            fechaInicio,
+            fechaFin,
+            selectedCompanies: seleccionActual === "all" ? [] : selectedCompanies
+          }),
         });
 
-      // Función para pintar los datos en el DOM
-      function renderizarTabla(transacciones) {
-        const tableBody = document.getElementById("tableBody");
-        const tableWrapper = document.getElementById("tableWrapper");
+        if (!response.ok) {
+          const error = await response.json();
+          throw new Error(error.error || "Error al iniciar proceso");
+        }
 
-        if (!transacciones || transacciones.length === 0) return;
+        const data = await response.json();
+        const jobId = data.jobId;
+        let jobStatus = "processing";
 
-        transacciones.forEach((txn) => {
-          const row = `
+        btnText.innerText = "Procesando...";
+
+        while (jobStatus === "processing") {
+          await new Promise((r) => setTimeout(r, 1500));
+          const statusRes = await fetch(`${API_BASE}/estado/${jobId}`);
+          const statusData = await statusRes.json();
+
+          if (statusData.error) throw new Error(statusData.error);
+
+          jobStatus = statusData.status;
+
+          if (jobStatus === "processing") {
+            progressBar.style.width = `${statusData.progress}%`;
+            progressText.innerText = `Procesando compañía ${statusData.current} de ${statusData.total} ...`;
+          } else if (jobStatus === "completed") {
+            progressBar.style.width = "100%";
+            progressText.innerText = "¡Finalizado! Renderizando...";
+            renderizarTabla(statusData.data);
+            msj.style.color = "#34d399";
+            msj.innerText = `✅ Se encontraron ${statusData.data.length} transacciones.`;
+            msj.style.display = "block";
+            btnDescargar.style.display = "flex";
+            btnDescargar.onclick = () => {
+              const link = document.createElement("a");
+              link.href = `${API_BASE}/descargar/${jobId}`;
+              document.body.appendChild(link);
+              link.click();
+              document.body.removeChild(link);
+            };
+          } else if (jobStatus === "error") {
+            throw new Error(statusData.error || "Error durante extracción");
+          }
+        }
+      } catch (e) {
+        msj.style.color = "#f87171";
+        msj.innerText = "❌ " + e.message;
+        msj.style.display = "block";
+      } finally {
+        btn.disabled = false;
+        loader.style.display = "none";
+        btnText.innerText = "Generar Reporte";
+        setTimeout(() => {
+          progressContainer.style.display = "none";
+          progressText.style.display = "none";
+        }, 3000);
+      }
+    });
+
+    function renderizarTabla(transacciones) {
+      const tableBody = document.getElementById("tableBody");
+      const tableWrapper = document.getElementById("tableWrapper");
+      if (!transacciones || transacciones.length === 0) return;
+
+      transacciones.forEach((txn) => {
+        const row = `
             <tr>
               <td class="company-name" title="${txn.compania_nombre}">${txn.compania_nombre}</td>
               <td class="id-cell" title="${txn.transaction_id}">${txn.transaction_id}</td>
               <td class="id-cell" title="${txn.order_id}">${txn.order_id}</td>
               <td><span class="status-pill">${txn.status}</span></td>
               <td class="monto">$${txn.monto_neto.toFixed(2)}</td>
-              <td class="email-cell" title="${txn.cliente_email || "" }">${txn.cliente_email || "N/A"}</td>
+              <td class="email-cell" title="${txn.cliente_email || ""}">${txn.cliente_email || "N/A"}</td>
               <td>${txn.cliente_tel || "N/A"}</td>
               <td>${txn.fecha_local}</td>
             </tr>
           `;
-          tableBody.insertAdjacentHTML("beforeend", row);
+        tableBody.insertAdjacentHTML("beforeend", row);
+      });
+      document.querySelector(".card").classList.add("pushed");
+      configurarFiltro(transacciones);
+      tableWrapper.style.display = "block";
+
+      // Scroll suave hacia los resultados
+      setTimeout(() => {
+        document.getElementById("filterContainer").scrollIntoView({
+          behavior: 'smooth',
+          block: 'start'
         });
+      }, 300);
+    }
 
-        // Mostrar la tabla una vez llena
-        document.querySelector(".card").classList.add("pushed");
-        
-        // Configurar Filtro
-        configurarFiltro(transacciones);
-        
-        tableWrapper.style.display = "block";
-      }
-
-      function configurarFiltro(transacciones) {
-        const filterContainer = document.getElementById("filterContainer");
-        const select = document.getElementById("filtroCompania");
-        const tableBody = document.getElementById("tableBody");
-
-        // Limpiar opciones previas (excepto la primera)
-        select.innerHTML = '<option value="all">Todas las compañías</option>';
-
-        // Obtener compañías únicas
-        const companiasUnicas = [
-          ...new Set(transacciones.map((t) => t.compania_nombre)),
-        ].sort();
-
-        // Llenar selector
-        companiasUnicas.forEach((nombre) => {
-          const opt = document.createElement("option");
-          opt.value = nombre;
-          opt.textContent = nombre;
-          select.appendChild(opt);
+    function configurarFiltro(transacciones) {
+      const filterContainer = document.getElementById("filterContainer");
+      const select = document.getElementById("filtroCompania");
+      const tableBody = document.getElementById("tableBody");
+      select.innerHTML = '<option value="all">Todas las compañías</option>';
+      const companiasUnicas = [...new Set(transacciones.map((t) => t.compania_nombre))].sort();
+      companiasUnicas.forEach((nombre) => {
+        const opt = document.createElement("option");
+        opt.value = nombre;
+        opt.textContent = nombre;
+        select.appendChild(opt);
+      });
+      select.onchange = () => {
+        const seleccion = select.value;
+        const filas = tableBody.querySelectorAll("tr");
+        filas.forEach((fila) => {
+          const nombreFila = fila.querySelector(".company-name").textContent;
+          if (seleccion === "all" || nombreFila === seleccion) {
+            fila.style.display = "";
+          } else {
+            fila.style.display = "none";
+          }
         });
+      };
+      filterContainer.style.display = "flex";
+    }
+  </script>
+</body>
 
-        // Evento de filtrado
-        select.onchange = () => {
-          const seleccion = select.value;
-          const filas = tableBody.querySelectorAll("tr");
-
-          filas.forEach((fila) => {
-            const nombreFila = fila.querySelector(".company-name").textContent;
-            if (seleccion === "all" || nombreFila === seleccion) {
-              fila.style.display = "";
-            } else {
-              fila.style.display = "none";
-            }
-          });
-        };
-
-        filterContainer.style.display = "flex";
-      }
-    </script>
-  </body>
 </html>
