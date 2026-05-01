@@ -155,6 +155,18 @@
     "env_var": "SECRET_CLUB_VPOWER"
   },
   {
+    "nombre": "Lucky Diamonds",
+    "env_var": "SECRET_LUCKY_DIAMONDS"
+  },
+  {
+    "nombre": "Lucky City Gaming",
+    "env_var": "SECRET_LUCKY_CITY_GAMING"
+  },
+  {
+    "nombre": "Slotting With Kitty",
+    "env_var": "SECRET_SLOTTING_WITH_KITTY"
+  },
+  {
     "nombre": "Panda God",
     "env_var": "SECRET_PANDA_GOD",
     "env_id": "MERCHANT_ID_PANDA_GOD"
