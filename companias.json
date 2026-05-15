@@ -163,6 +163,18 @@
     "env_var": "SECRET_LUCKY_CITY_GAMING"
   },
   {
+    "nombre": "The Mega House Auto Play",
+    "env_var": "SECRET_THEMEGAHOUSE_AUTOPLAY"
+  },
+  {
+    "nombre": "Rockfish Vip Autoplay",
+    "env_var": "SECRET_ROCKFISH_VIP_AUTOPLAY"
+  },
+  {
+    "nombre": "Lucky Charms",
+    "env_var": "SECRET_LUCKY_CHARMS"
+  },
+  {
     "nombre": "Slotting With Kitty",
     "env_var": "SECRET_SLOTTING_WITH_KITTY"
   },
