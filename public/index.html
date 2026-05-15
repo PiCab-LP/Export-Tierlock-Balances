@@ -433,6 +433,25 @@
     #companySelector::-webkit-scrollbar-thumb:hover {
       background: #444;
     }
+    #companySearch {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background-color: #171717;
+      border: 1px solid var(--input-border);
+      border-radius: 0.5rem;
+      font-size: 0.875rem;
+      color: var(--text-main);
+      outline: none;
+      transition: all 0.2s;
+      box-sizing: border-box;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+
+    #companySearch:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 2px rgba(251, 191, 36, 0.2);
+    }
   </style>
 
 </head>
@@ -465,6 +484,8 @@
       <div class="mode-option active" id="modeAll">Todas</div>
       <div class="mode-option" id="modeSpecific">Seleccionar</div>
     </div>
+
+    <input type="text" id="companySearch" placeholder="Buscar compañía..." autocomplete="off" />
 
     <div id="companySelector">
       <!-- Se llenará dinámicamente -->
@@ -538,6 +559,7 @@
       modeAll.classList.add("active");
       modeSpecific.classList.remove("active");
       companySelector.style.display = "none";
+      document.getElementById("companySearch").style.display = "none";
       modeSlider.style.transform = "translateX(0)";
     });
 
@@ -546,7 +568,19 @@
       modeSpecific.classList.add("active");
       modeAll.classList.remove("active");
       companySelector.style.display = "block";
+      document.getElementById("companySearch").style.display = "block";
       modeSlider.style.transform = "translateX(100%)";
+    });
+
+    // Lógica de búsqueda
+    const companySearch = document.getElementById("companySearch");
+    companySearch.addEventListener("input", () => {
+      const term = companySearch.value.toLowerCase();
+      const labels = companySelector.querySelectorAll(".company-checkbox");
+      labels.forEach(label => {
+        const text = label.querySelector("span").textContent.toLowerCase();
+        label.style.display = text.includes(term) ? "flex" : "none";
+      });
     });
 
     // Cargar lista de compañías
