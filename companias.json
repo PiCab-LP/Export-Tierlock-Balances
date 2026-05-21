@@ -179,6 +179,26 @@
     "env_var": "SECRET_SLOTTING_WITH_KITTY"
   },
   {
+    "nombre": "Click Arcade",
+    "env_var": "SECRET_CLICK_ARCADE"
+  },
+  {
+    "nombre": "Galaxy Gold Gaming",
+    "env_var": "SECRET_GALAXY_GOLD_GAMING"
+  },
+  {
+    "nombre": "Lucky Buddy Gameroom",
+    "env_var": "SECRET_LUCKY_BUDDY_GAMEROOM"
+  },
+  {
+    "nombre": "Petersburg Online",
+    "env_var": "SECRET_PETERSBURG_ONLINE"
+  },
+  {
+    "nombre": "LB Money Train",
+    "env_var": "SECRET_LB_MONEY_TRAIN"
+  },
+  {
     "nombre": "Panda God",
     "env_var": "SECRET_PANDA_GOD",
     "env_id": "MERCHANT_ID_PANDA_GOD"
