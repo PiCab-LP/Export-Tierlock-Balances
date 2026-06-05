@@ -110,7 +110,8 @@ app.post('/api/exportar', async (req, res) => {
                         merchant_secret: merchantSecret,
                         page: paginaActual,
                         start_date: start,
-                        end_date: end
+                        end_date: end,
+                        status: 'all'
                     }, { timeout: 15000 });
 
                     if (response.data.success) {
