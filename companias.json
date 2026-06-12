@@ -191,6 +191,22 @@
     "env_var": "SECRET_LB_MONEY_TRAIN"
   },
   {
+    "nombre": "Paradice Arcade",
+    "env_var": "SECRET_PARADICE_ARCADE"
+  },
+  {
+    "nombre": "Dragon Queens Kingdom",
+    "env_var": "SECRET_DRAGON_QUEENS_KINGDOM"
+  },
+  {
+    "nombre": "Money Love Slots",
+    "env_var": "SECRET_MONEY_LOVE_SLOTS"
+  },
+  {
+    "nombre": "Lucky Lounge",
+    "env_var": "SECRET_LUCKY_LOUNGE"
+  },
+  {
     "nombre": "Panda God",
     "env_var": "SECRET_PANDA_GOD",
     "env_id": "MERCHANT_ID_PANDA_GOD"
