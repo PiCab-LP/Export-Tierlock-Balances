@@ -16,10 +16,6 @@
     "env_var": "SECRET_LUCKY_DUCK_LOUNGE"
   },
   {
-    "nombre": "Simply Unmatched",
-    "env_var": "SECRET_SIMPLY_UNMATCHED"
-  },
-  {
     "nombre": "Lucky Shamrock",
     "env_var": "SECRET_LUCKY_SHAMROCK"
   },
@@ -169,10 +165,6 @@
   {
     "nombre": "Rockfish Vip Autoplay",
     "env_var": "SECRET_ROCKFISH_VIP_AUTOPLAY"
-  },
-  {
-    "nombre": "Lucky Charms",
-    "env_var": "SECRET_LUCKY_CHARMS"
   },
   {
     "nombre": "Slotting With Kitty",
